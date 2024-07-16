@@ -12,7 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddMultiTenantEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
 // Add MultiTenant
