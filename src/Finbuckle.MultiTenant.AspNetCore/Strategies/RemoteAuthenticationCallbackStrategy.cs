@@ -15,16 +15,10 @@ using Microsoft.Extensions.Options;
 
 namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 
-public class RemoteAuthenticationCallbackStrategy : IMultiTenantStrategy
+public class RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCallbackStrategy> logger)
+    : IMultiTenantStrategy
 {
-    private readonly ILogger<RemoteAuthenticationCallbackStrategy> logger;
-
     public int Priority => -900;
-
-    public RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCallbackStrategy> logger)
-    {
-            this.logger = logger;
-        }
 
     public async virtual Task<string?> GetIdentifierAsync(object context)
     {

@@ -5,16 +5,11 @@ using Finbuckle.MultiTenant.Abstractions;
 
 namespace Finbuckle.MultiTenant.Strategies;
 
-public class StaticStrategy : IMultiTenantStrategy
+public class StaticStrategy(string identifier) : IMultiTenantStrategy
 {
-    internal readonly string Identifier;
+    internal readonly string Identifier = identifier;
 
     public int Priority => -1000;
-
-    public StaticStrategy(string identifier)
-    {
-        this.Identifier = identifier;
-    }
 
     public async Task<string?> GetIdentifierAsync(object context)
     {

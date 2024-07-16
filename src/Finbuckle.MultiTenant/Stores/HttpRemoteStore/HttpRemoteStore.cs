@@ -18,7 +18,7 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     // (also used on HttpRemoteStoreClient)
     internal static readonly string DefaultEndpointTemplateIdentifierToken = $"{{{Constants.TenantToken}}}";
     private readonly HttpRemoteStoreClient<TTenantInfo> _client;
-    private readonly string endpointTemplate;
+    private readonly string _endpointTemplate;
 
     /// <summary>
     /// Constructor for HttpRemoteStore.
@@ -47,7 +47,7 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
             throw new ArgumentException("Parameter 'endpointTemplate' is not a an http or https uri.",
                 nameof(endpointTemplate));
 
-        this.endpointTemplate = endpointTemplate;
+        this._endpointTemplate = endpointTemplate;
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
     {
-        var result = await _client.TryGetByIdentifierAsync(endpointTemplate, identifier);
+        var result = await _client.TryGetByIdentifierAsync(_endpointTemplate, identifier);
         return result;
     }
 

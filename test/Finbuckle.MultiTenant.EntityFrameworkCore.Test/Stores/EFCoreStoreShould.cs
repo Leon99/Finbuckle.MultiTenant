@@ -86,7 +86,7 @@ public class EfCoreStoreShould
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
             var tenant = await store.TryGetAsync("initech-id");
             
-            var entity = store.dbContext.Entry(tenant!);
+            var entity = store.DbContext.Entry(tenant!);
             Assert.Equal(EntityState.Detached, entity.State);
         }
         
@@ -96,7 +96,7 @@ public class EfCoreStoreShould
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
             var tenant = await store.TryGetByIdentifierAsync("initech");
             
-            var entity = store.dbContext.Entry(tenant!);
+            var entity = store.DbContext.Entry(tenant!);
             Assert.Equal(EntityState.Detached, entity.State);
         }
         
@@ -106,7 +106,7 @@ public class EfCoreStoreShould
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
             var tenant = (await store.GetAllAsync()).First();
             
-            var entity = store.dbContext.Entry(tenant);
+            var entity = store.DbContext.Entry(tenant);
             Assert.Equal(EntityState.Detached, entity.State);
         }
         
@@ -122,7 +122,7 @@ public class EfCoreStoreShould
             };
             await store.TryAddAsync(tenant);
             
-            var entity = store.dbContext.Entry(tenant);
+            var entity = store.DbContext.Entry(tenant);
             Assert.Equal(EntityState.Detached, entity.State);
         }
         
@@ -134,7 +134,7 @@ public class EfCoreStoreShould
             tenant!.Name = "new name";
             await store.TryUpdateAsync(tenant);
             
-            var entity = store.dbContext.Entry(tenant);
+            var entity = store.DbContext.Entry(tenant);
             Assert.Equal(EntityState.Detached, entity.State);
         }
         
@@ -146,7 +146,7 @@ public class EfCoreStoreShould
             tenant!.Name = "new name";
             await store.TryRemoveAsync(tenant.Id!);
             
-            var entity = store.dbContext.Entry(tenant);
+            var entity = store.DbContext.Entry(tenant);
             Assert.Equal(EntityState.Detached, entity.State);
         }
 

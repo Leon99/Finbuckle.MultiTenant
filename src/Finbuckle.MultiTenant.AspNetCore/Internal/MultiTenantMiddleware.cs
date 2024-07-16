@@ -11,15 +11,8 @@ namespace Finbuckle.MultiTenant.AspNetCore.Internal;
 /// <summary>
 /// Middleware for resolving the MultiTenantContext and storing it in HttpContext.
 /// </summary>
-public class MultiTenantMiddleware
+public class MultiTenantMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate next;
-
-    public MultiTenantMiddleware(RequestDelegate next)
-    {
-            this.next = next;
-        }
-
     public async Task Invoke(HttpContext context)
     {
             context.RequestServices.GetRequiredService<IMultiTenantContextAccessor>();

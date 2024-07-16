@@ -8,11 +8,11 @@ namespace Finbuckle.MultiTenant;
 
 public class TenantInfo : ITenantInfo
 {
-    private string? id;
+    private string? _id;
 
     public string? Id
     {
-        get => id;
+        get => _id;
         set
         {
             if (value != null)
@@ -21,7 +21,7 @@ public class TenantInfo : ITenantInfo
                 {
                     throw new MultiTenantException($"The tenant id cannot exceed {Constants.TenantIdMaxLength} characters.");
                 }
-                id = value;
+                _id = value;
             }
         }
     }

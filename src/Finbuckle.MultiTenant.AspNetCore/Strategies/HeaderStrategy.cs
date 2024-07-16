@@ -11,20 +11,14 @@ using Microsoft.AspNetCore.Http;
 namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-public class HeaderStrategy : IMultiTenantStrategy
+public class HeaderStrategy(string headerKey) : IMultiTenantStrategy
 {
-    private readonly string _headerKey;
-    public HeaderStrategy(string headerKey)
-    {
-            _headerKey = headerKey;
-        }
-
     public Task<string?> GetIdentifierAsync(object context)
     {
             if (!(context is HttpContext httpContext))
                 throw new MultiTenantException(null,
                     new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
 
-            return Task.FromResult(httpContext?.Request.Headers[_headerKey].FirstOrDefault());
+            return Task.FromResult(httpContext?.Request.Headers[headerKey].FirstOrDefault());
         }
 }

@@ -11,14 +11,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Finbuckle.MultiTenant.EntityFrameworkCore;
 
 [SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
-public class MultiTenantEntityTypeBuilder
+public class MultiTenantEntityTypeBuilder(EntityTypeBuilder builder)
 {
-    public EntityTypeBuilder Builder { get; }
-
-    public MultiTenantEntityTypeBuilder(EntityTypeBuilder builder)
-    {
-            Builder = builder;
-        }
+    public EntityTypeBuilder Builder { get; } = builder;
 
     /// <summary>
     /// Adds TenantId to the index.

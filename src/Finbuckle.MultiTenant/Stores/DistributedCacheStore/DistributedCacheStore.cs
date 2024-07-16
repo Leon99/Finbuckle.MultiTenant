@@ -13,9 +13,9 @@ namespace Finbuckle.MultiTenant.Stores.DistributedCacheStore;
 /// <typeparam name="TTenantInfo">The ITenantInfo implementation type.</typeparam>
 public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IDistributedCache cache;
-    private readonly string keyPrefix;
-    private readonly TimeSpan? slidingExpiration;
+    private readonly IDistributedCache _cache;
+    private readonly string _keyPrefix;
+    private readonly TimeSpan? _slidingExpiration;
 
     /// <summary>
     /// Constructor for DistributedCacheStore.
@@ -26,19 +26,19 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <exception cref="ArgumentNullException"></exception>
     public DistributedCacheStore(IDistributedCache cache, string keyPrefix, TimeSpan? slidingExpiration)
     {
-        this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
-        this.keyPrefix = keyPrefix ?? throw new ArgumentNullException(nameof(keyPrefix));
-        this.slidingExpiration = slidingExpiration;
+        this._cache = cache ?? throw new ArgumentNullException(nameof(cache));
+        this._keyPrefix = keyPrefix ?? throw new ArgumentNullException(nameof(keyPrefix));
+        this._slidingExpiration = slidingExpiration;
     }
 
     /// <inheritdoc />
     public async Task<bool> TryAddAsync(TTenantInfo tenantInfo)
     {
-        var options = new DistributedCacheEntryOptions { SlidingExpiration = slidingExpiration };
+        var options = new DistributedCacheEntryOptions { SlidingExpiration = _slidingExpiration };
         var bytes = JsonSerializer.Serialize(tenantInfo);
 
-        await cache.SetStringAsync($"{keyPrefix}id__{tenantInfo.Id}", bytes, options);
-        await cache.SetStringAsync($"{keyPrefix}identifier__{tenantInfo.Identifier}", bytes, options);
+        await _cache.SetStringAsync($"{_keyPrefix}id__{tenantInfo.Id}", bytes, options);
+        await _cache.SetStringAsync($"{_keyPrefix}identifier__{tenantInfo.Identifier}", bytes, options);
 
         return true;
     }
@@ -46,14 +46,14 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<TTenantInfo?> TryGetAsync(string id)
     {
-        var bytes = await cache.GetStringAsync($"{keyPrefix}id__{id}");
+        var bytes = await _cache.GetStringAsync($"{_keyPrefix}id__{id}");
         if (bytes == null)
             return null;
 
         var result = JsonSerializer.Deserialize<TTenantInfo>(bytes);
 
         // Refresh the identifier version to keep things synced
-        await cache.RefreshAsync($"{keyPrefix}identifier__{result?.Identifier}");
+        await _cache.RefreshAsync($"{_keyPrefix}identifier__{result?.Identifier}");
 
         return result;
     }
@@ -70,14 +70,14 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
     {
-        var bytes = await cache.GetStringAsync($"{keyPrefix}identifier__{identifier}");
+        var bytes = await _cache.GetStringAsync($"{_keyPrefix}identifier__{identifier}");
         if (bytes == null)
             return null;
 
         var result = JsonSerializer.Deserialize<TTenantInfo>(bytes);
 
         // Refresh the identifier version to keep things synced
-        await cache.RefreshAsync($"{keyPrefix}id__{result?.Id}");
+        await _cache.RefreshAsync($"{_keyPrefix}id__{result?.Id}");
 
         return result;
     }
@@ -89,8 +89,8 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
         if (result == null)
             return false;
 
-        await cache.RemoveAsync($"{keyPrefix}id__{result.Id}");
-        await cache.RemoveAsync($"{keyPrefix}identifier__{result.Identifier}");
+        await _cache.RemoveAsync($"{_keyPrefix}id__{result.Id}");
+        await _cache.RemoveAsync($"{_keyPrefix}identifier__{result.Identifier}");
 
         return true;
     }

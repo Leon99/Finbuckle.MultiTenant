@@ -47,6 +47,16 @@ public static class EntityTypeBuilderExtensions
             throw new MultiTenantException($"{builder.Metadata.ClrType} unable to add TenantId property", ex);
         }
 
+        var lambdaExp = CreateFilterExpression(builder);
+
+        // set the filter
+        builder.HasQueryFilter(lambdaExp);
+
+        return new MultiTenantEntityTypeBuilder(builder);
+    }
+
+    private static LambdaExpression CreateFilterExpression(EntityTypeBuilder builder)
+    {
         // build expression tree for e => EF.Property<string>(e, "TenantId") == TenantInfo.Id
 
         // where e is one of our entity types
@@ -86,10 +96,6 @@ public static class EntityTypeBuilderExtensions
         // build the final expression tree
         var delegateType = Expression.GetDelegateType(builder.Metadata.ClrType, typeof(bool));
         var lambdaExp = Expression.Lambda(delegateType, predicate, entityParamExp);
-
-        // set the filter
-        builder.HasQueryFilter(lambdaExp);
-
-        return new MultiTenantEntityTypeBuilder(builder);
+        return lambdaExp;
     }
 }

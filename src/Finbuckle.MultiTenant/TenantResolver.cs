@@ -18,8 +18,8 @@ namespace Finbuckle.MultiTenant;
 public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
     where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IOptionsMonitor<MultiTenantOptions> options;
-    private readonly ILoggerFactory? loggerFactory;
+    private readonly IOptionsMonitor<MultiTenantOptions> _options;
+    private readonly ILoggerFactory? _loggerFactory;
 
     public TenantResolver(IEnumerable<IMultiTenantStrategy> strategies,
         IEnumerable<IMultiTenantStore<TTenantInfo>> stores, IOptionsMonitor<MultiTenantOptions> options) :
@@ -32,8 +32,8 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
         ILoggerFactory? loggerFactory)
     {
         Stores = stores;
-        this.options = options;
-        this.loggerFactory = loggerFactory;
+        this._options = options;
+        this._loggerFactory = loggerFactory;
 
         Strategies = strategies.OrderByDescending(s => s.Priority);
     }
@@ -53,12 +53,12 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
         foreach (var strategy in Strategies)
         {
             var wrappedStrategy = new MultiTenantStrategyWrapper(strategy,
-                loggerFactory?.CreateLogger(strategy.GetType()) ?? NullLogger.Instance);
+                _loggerFactory?.CreateLogger(strategy.GetType()) ?? NullLogger.Instance);
             identifier = await wrappedStrategy.GetIdentifierAsync(context);
 
-            if (options.CurrentValue.IgnoredIdentifiers.Contains(identifier, StringComparer.OrdinalIgnoreCase))
+            if (_options.CurrentValue.IgnoredIdentifiers.Contains(identifier, StringComparer.OrdinalIgnoreCase))
             {
-                (loggerFactory?.CreateLogger(GetType()) ?? NullLogger.Instance).LogInformation(
+                (_loggerFactory?.CreateLogger(GetType()) ?? NullLogger.Instance).LogInformation(
                     "Ignored identifier: {Identifier}", identifier);
                 identifier = null;
             }
@@ -69,12 +69,12 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
             foreach (var store in Stores)
             {
                 var wrappedStore = new MultiTenantStoreWrapper<TTenantInfo>(store,
-                    loggerFactory?.CreateLogger(store.GetType()) ?? NullLogger.Instance);
+                    _loggerFactory?.CreateLogger(store.GetType()) ?? NullLogger.Instance);
                 var tenantInfo = await wrappedStore.TryGetByIdentifierAsync(identifier);
                 if (tenantInfo == null)
                     continue;
 
-                await options.CurrentValue.Events.OnTenantResolved(new TenantResolvedContext
+                await _options.CurrentValue.Events.OnTenantResolved(new TenantResolvedContext
                 {
                     Context = context,
                     TenantInfo = tenantInfo,
@@ -89,7 +89,7 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
             }
         }
 
-        await options.CurrentValue.Events.OnTenantNotResolved(new TenantNotResolvedContext
+        await _options.CurrentValue.Events.OnTenantNotResolved(new TenantNotResolvedContext
             { Context = context, Identifier = identifier });
         return mtc;
     }

@@ -6,17 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Finbuckle.MultiTenant.Strategies;
 
-public class MultiTenantStrategyWrapper : IMultiTenantStrategy
+public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger logger) : IMultiTenantStrategy
 {
-    public IMultiTenantStrategy Strategy { get; }
+    public IMultiTenantStrategy Strategy { get; } = strategy ?? throw new ArgumentNullException(nameof(strategy));
 
-    private readonly ILogger logger;
-
-    public MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger logger)
-    {
-        this.Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
-        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     public async Task<string?> GetIdentifierAsync(object context)
     {
@@ -30,22 +24,22 @@ public class MultiTenantStrategyWrapper : IMultiTenantStrategy
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Exception in GetIdentifierAsync");
+            _logger.LogError(e, "Exception in GetIdentifierAsync");
             throw new MultiTenantException($"Exception in {Strategy.GetType()}.GetIdentifierAsync.", e);
         }
 
         if(identifier != null)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
+            if (_logger.IsEnabled(LogLevel.Debug))
             {
-                logger.LogDebug("GetIdentifierAsync: Found identifier: \"{Identifier}\"", identifier);
+                _logger.LogDebug("GetIdentifierAsync: Found identifier: \"{Identifier}\"", identifier);
             }
         }
         else
         {
-            if (logger.IsEnabled(LogLevel.Debug))
+            if (_logger.IsEnabled(LogLevel.Debug))
             {
-                logger.LogDebug("GetIdentifierAsync: No identifier found");
+                _logger.LogDebug("GetIdentifierAsync: No identifier found");
             }
         }
 

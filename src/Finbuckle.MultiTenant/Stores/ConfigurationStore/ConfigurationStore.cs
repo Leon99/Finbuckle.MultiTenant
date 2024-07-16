@@ -16,8 +16,8 @@ namespace Finbuckle.MultiTenant.Stores.ConfigurationStore;
 public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITenantInfo, new()
 {
     private const string DefaultSectionName = "Finbuckle:MultiTenant:Stores:ConfigurationStore";
-    private readonly IConfigurationSection section;
-    private ConcurrentDictionary<string, TTenantInfo>? tenantMap;
+    private readonly IConfigurationSection _section;
+    private ConcurrentDictionary<string, TTenantInfo>? _tenantMap;
 
     // ReSharper disable once IntroduceOptionalParameters.Global
     /// <summary>
@@ -46,31 +46,31 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
             throw new ArgumentException("Section name provided to the Configuration Store is null or empty.", nameof(sectionName));
         }
 
-        section = configuration.GetSection(sectionName);
-        if(!section.Exists())
+        _section = configuration.GetSection(sectionName);
+        if(!_section.Exists())
         {
             throw new MultiTenantException("Section name provided to the Configuration Store is invalid.");
         }
 
         UpdateTenantMap();
-        ChangeToken.OnChange(() => section.GetReloadToken(), UpdateTenantMap);
+        ChangeToken.OnChange(() => _section.GetReloadToken(), UpdateTenantMap);
     }
 
     private void UpdateTenantMap()
     {
         var newMap = new ConcurrentDictionary<string, TTenantInfo>(StringComparer.OrdinalIgnoreCase);
-        var tenants = section.GetSection("Tenants").GetChildren();
+        var tenants = _section.GetSection("Tenants").GetChildren();
 
         foreach(var tenantSection in tenants)
         {
-            var newTenant = section.GetSection("Defaults").Get<TTenantInfo>(options => options.BindNonPublicProperties = true) ?? new TTenantInfo();
+            var newTenant = _section.GetSection("Defaults").Get<TTenantInfo>(options => options.BindNonPublicProperties = true) ?? new TTenantInfo();
             tenantSection.Bind(newTenant, options => options.BindNonPublicProperties = true);
 
             // Throws an ArgumentNullException if the identifier is null.
             newMap.TryAdd(newTenant.Identifier!, newTenant);
         }
 
-        tenantMap = newMap;
+        _tenantMap = newMap;
     }
 
     /// <summary>
@@ -87,13 +87,13 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
     {
         ArgumentNullException.ThrowIfNull(id);
 
-        return await Task.FromResult(tenantMap?.Where(kv => kv.Value.Id == id).SingleOrDefault().Value);
+        return await Task.FromResult(_tenantMap?.Where(kv => kv.Value.Id == id).SingleOrDefault().Value);
     }
 
     /// <inheritdoc />
     public async Task<IEnumerable<TTenantInfo>> GetAllAsync()
     {
-        return await Task.FromResult(tenantMap?.Select(x => x.Value).ToList() ?? new List<TTenantInfo>());
+        return await Task.FromResult(_tenantMap?.Select(x => x.Value).ToList() ?? new List<TTenantInfo>());
     }
 
     /// <inheritdoc />
@@ -101,12 +101,12 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
     {
         ArgumentNullException.ThrowIfNull(identifier);
 
-        if (tenantMap is null)
+        if (_tenantMap is null)
         {
             return null;
         }
 
-        return await Task.FromResult(tenantMap.TryGetValue(identifier, out var result) ? result : null);
+        return await Task.FromResult(_tenantMap.TryGetValue(identifier, out var result) ? result : null);
     }
 
     /// <summary>

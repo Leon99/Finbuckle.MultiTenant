@@ -6,13 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Finbuckle.MultiTenant.EntityFrameworkCore.Stores.EFCoreStore;
 
-public class EFCoreStoreDbContext<TTenantInfo> : DbContext, IEFCoreStoreDbContext<TTenantInfo>
+public class EFCoreStoreDbContext<TTenantInfo>(DbContextOptions options)
+    : DbContext(options), IEFCoreStoreDbContext<TTenantInfo>
     where TTenantInfo : class, ITenantInfo, new()
 {
-    public EFCoreStoreDbContext(DbContextOptions options) : base(options)
-    {
-    }
-
     public DbSet<TTenantInfo> TenantInfos => Set<TTenantInfo>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

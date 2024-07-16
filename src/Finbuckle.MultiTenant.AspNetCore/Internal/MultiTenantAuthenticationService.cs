@@ -13,17 +13,13 @@ using Microsoft.Extensions.Options;
 namespace Finbuckle.MultiTenant.AspNetCore.Internal;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-internal class MultiTenantAuthenticationService<TTenantInfo> : IAuthenticationService
+internal class MultiTenantAuthenticationService<TTenantInfo>(
+    IAuthenticationService inner,
+    IOptionsMonitor<MultiTenantAuthenticationOptions> multiTenantAuthenticationOptions)
+    : IAuthenticationService
     where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IAuthenticationService _inner;
-    private readonly IOptionsMonitor<MultiTenantAuthenticationOptions> _multiTenantAuthenticationOptions;
-
-    public MultiTenantAuthenticationService(IAuthenticationService inner, IOptionsMonitor<MultiTenantAuthenticationOptions> multiTenantAuthenticationOptions)
-    {
-            this._inner = inner ?? throw new System.ArgumentNullException(nameof(inner));
-            this._multiTenantAuthenticationOptions = multiTenantAuthenticationOptions;
-        }
+    private readonly IAuthenticationService _inner = inner ?? throw new System.ArgumentNullException(nameof(inner));
 
     private static void AddTenantIdentifierToProperties(HttpContext context, ref AuthenticationProperties? properties)
     {
@@ -42,7 +38,7 @@ internal class MultiTenantAuthenticationService<TTenantInfo> : IAuthenticationSe
 
     public async Task ChallengeAsync(HttpContext context, string? scheme, AuthenticationProperties? properties)
     {
-        if (_multiTenantAuthenticationOptions.CurrentValue.SkipChallengeIfTenantNotResolved)
+        if (multiTenantAuthenticationOptions.CurrentValue.SkipChallengeIfTenantNotResolved)
         {
             if (context.GetMultiTenantContext<TTenantInfo>()?.TenantInfo == null)
                 return;
