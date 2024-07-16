@@ -18,7 +18,7 @@ public static class OptionsBuilderExtensions
         where TOptions : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -42,7 +42,7 @@ public static class OptionsBuilderExtensions
         where TDep : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -68,7 +68,7 @@ public static class OptionsBuilderExtensions
         where TDep2 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -97,7 +97,7 @@ public static class OptionsBuilderExtensions
         where TDep3 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -128,7 +128,7 @@ public static class OptionsBuilderExtensions
         where TDep4 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -192,7 +192,7 @@ public static class OptionsBuilderExtensions
         where TOptions : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -216,7 +216,7 @@ public static class OptionsBuilderExtensions
         where TDep : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -242,7 +242,7 @@ public static class OptionsBuilderExtensions
         where TDep2 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -271,7 +271,7 @@ public static class OptionsBuilderExtensions
         where TDep3 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 
@@ -302,7 +302,7 @@ public static class OptionsBuilderExtensions
         where TDep4 : class
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+        ArgumentNullException.ThrowIfNull(configureOptions);
 
         FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
 

@@ -10,16 +10,9 @@ public class TenantInfo : ITenantInfo
 {
     private string? id;
 
-    public TenantInfo()
-    {
-    }
-
     public string? Id
     {
-        get
-        {
-            return id;
-        }
+        get => id;
         set
         {
             if (value != null)

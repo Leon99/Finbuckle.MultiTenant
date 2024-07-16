@@ -48,10 +48,7 @@ public class MultiTenantBuilder<TTenantInfo> where TTenantInfo : class, ITenantI
         Func<IServiceProvider, TStore> factory)
         where TStore : IMultiTenantStore<TTenantInfo>
     {
-        if (factory == null)
-        {
-            throw new ArgumentNullException(nameof(factory));
-        }
+        ArgumentNullException.ThrowIfNull(factory);
 
         // Note: can't use TryAddEnumerable here because ServiceDescriptor.Describe with a factory can't set implementation type.
         Services.Add(
@@ -80,10 +77,7 @@ public class MultiTenantBuilder<TTenantInfo> where TTenantInfo : class, ITenantI
         Func<IServiceProvider, TStrategy> factory)
         where TStrategy : IMultiTenantStrategy
     {
-        if (factory == null)
-        {
-            throw new ArgumentNullException(nameof(factory));
-        }
+        ArgumentNullException.ThrowIfNull(factory);
 
         // Potential for multiple entries per service is intended.
         Services.Add(ServiceDescriptor.Describe(typeof(IMultiTenantStrategy), sp => factory(sp), lifetime));

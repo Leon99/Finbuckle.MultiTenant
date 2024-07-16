@@ -19,7 +19,7 @@ public class RemoteAuthenticationCallbackStrategy : IMultiTenantStrategy
 {
     private readonly ILogger<RemoteAuthenticationCallbackStrategy> logger;
 
-    public int Priority { get => -900; }
+    public int Priority => -900;
 
     public RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCallbackStrategy> logger)
     {
@@ -87,7 +87,7 @@ public class RemoteAuthenticationCallbackStrategy : IMultiTenantStrategy
                         if (properties == null)
                         {
                             if (logger != null)
-                                logger.LogWarning("A tenant could not be determined because no state parameter passed with the remote authentication callback.");
+                                logger.LogWarning("A tenant could not be determined because no state parameter passed with the remote authentication callback");
                             return null;
                         }
 

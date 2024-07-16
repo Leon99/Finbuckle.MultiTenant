@@ -256,7 +256,7 @@ public static class FinbuckleServiceCollectionExtensions
     internal static void ConfigurePerTenantReqs<TOptions>(IServiceCollection services)
         where TOptions : class
     {
-        if (services == null) throw new ArgumentNullException(nameof(services));
+        ArgumentNullException.ThrowIfNull(services);
 
         // Required infrastructure.
         services.AddOptions();

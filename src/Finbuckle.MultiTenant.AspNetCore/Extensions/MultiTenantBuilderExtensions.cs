@@ -85,7 +85,7 @@ public static class MultiTenantBuilderExtensions
                 {
                     var loggerFactory = context.HttpContext.RequestServices.GetService<ILoggerFactory>();
                     loggerFactory?.CreateLogger<MultiTenantBuilder<TTenantInfo>>()
-                        .LogWarning("No tenant found in authentication properties.");
+                        .LogWarning("No tenant found in authentication properties");
                 }
 
                 // Does the current tenant match the auth property tenant?

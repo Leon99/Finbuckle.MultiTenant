@@ -20,10 +20,7 @@ public class MultiTenantStrategyWrapper : IMultiTenantStrategy
 
     public async Task<string?> GetIdentifierAsync(object context)
     {
-        if (context == null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
         string? identifier = null;
 

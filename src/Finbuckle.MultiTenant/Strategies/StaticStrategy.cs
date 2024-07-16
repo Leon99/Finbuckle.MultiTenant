@@ -9,7 +9,7 @@ public class StaticStrategy : IMultiTenantStrategy
 {
     internal readonly string Identifier;
 
-    public int Priority { get => -1000; }
+    public int Priority => -1000;
 
     public StaticStrategy(string identifier)
     {

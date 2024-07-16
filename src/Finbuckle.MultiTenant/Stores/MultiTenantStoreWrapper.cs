@@ -35,10 +35,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     /// <inheritdoc />
     public async Task<TTenantInfo?> TryGetAsync(string id)
     {
-        if (id == null)
-        {
-            throw new ArgumentNullException(nameof(id));
-        }
+        ArgumentNullException.ThrowIfNull(id);
 
         TTenantInfo? result = null;
 
@@ -55,12 +52,12 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("TryGetAsync: Tenant Id \"{TenantId}\" found.", id);
+                _logger.LogDebug("TryGetAsync: Tenant Id \"{TenantId}\" found", id);
             }
         }
         else
         {
-            _logger.LogDebug("TryGetAsync: Unable to find Tenant Id \"{TenantId}\".", id);
+            _logger.LogDebug("TryGetAsync: Unable to find Tenant Id \"{TenantId}\"", id);
         }
 
         return result;
@@ -86,10 +83,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     /// <inheritdoc />
     public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
     {
-        if (identifier == null)
-        {
-            throw new ArgumentNullException(nameof(identifier));
-        }
+        ArgumentNullException.ThrowIfNull(identifier);
 
         TTenantInfo? result = null;
 
@@ -186,10 +180,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     /// <inheritdoc />
     public async Task<bool> TryRemoveAsync(string identifier)
     {
-        if (identifier == null)
-        {
-            throw new ArgumentNullException(nameof(identifier));
-        }
+        ArgumentNullException.ThrowIfNull(identifier);
 
         var result = false;
 
@@ -218,10 +209,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     /// <inheritdoc />
     public async Task<bool> TryUpdateAsync(TTenantInfo tenantInfo)
     {
-        if (tenantInfo == null)
-        {
-            throw new ArgumentNullException(nameof(tenantInfo));
-        }
+        ArgumentNullException.ThrowIfNull(tenantInfo);
 
         if (tenantInfo.Id == null)
         {
