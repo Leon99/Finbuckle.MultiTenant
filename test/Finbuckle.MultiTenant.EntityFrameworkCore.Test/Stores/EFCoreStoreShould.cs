@@ -76,7 +76,7 @@ public class EfCoreStoreShould
     [Fact]
     public void AddIdentifierUniqueConstraint()
     {
-            var prop = GetModelProperty("Identifier");
+            var prop = GetModelProperty("Key");
             Assert.True(prop!.IsIndex());
         }
         
@@ -94,7 +94,7 @@ public class EfCoreStoreShould
     public async Task NotTrackContextOnGetByIdentifier()
     {
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
-            var tenant = await store.TryGetByIdentifierAsync("initech");
+            var tenant = await store.TryGetByKeyAsync("initech");
             
             var entity = store.DbContext.Entry(tenant!);
             Assert.Equal(EntityState.Detached, entity.State);
@@ -117,7 +117,7 @@ public class EfCoreStoreShould
             var tenant = new TenantInfo
             {
                 Id = "test-id",
-                Identifier = "test-identifier",
+                Key = "test-identifier",
                 Name = "test"
             };
             await store.TryAddAsync(tenant);
@@ -130,7 +130,7 @@ public class EfCoreStoreShould
     public async Task NotTrackContextOnUpdate()
     {
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
-            var tenant = await store.TryGetByIdentifierAsync("initech");
+            var tenant = await store.TryGetByKeyAsync("initech");
             tenant!.Name = "new name";
             await store.TryUpdateAsync(tenant);
             
@@ -142,7 +142,7 @@ public class EfCoreStoreShould
     public async Task NotTrackContextOnRemove()
     {
             var store = (EFCoreStore<TestEfCoreStoreDbContext, TenantInfo>)CreateTestStore();
-            var tenant = await store.TryGetByIdentifierAsync("initech");
+            var tenant = await store.TryGetByKeyAsync("initech");
             tenant!.Name = "new name";
             await store.TryRemoveAsync(tenant.Id!);
             

@@ -162,7 +162,7 @@ public static class OptionsBuilderExtensions
     //     where TDep5 : class
     //     where TTenantInfo : class, ITenantInfo, new()
     // {
-    //     if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+    //     if (configureOptions is null) throw new ArgumentNullException(nameof(configureOptions));
     //
     //     FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
     //
@@ -337,7 +337,7 @@ public static class OptionsBuilderExtensions
     //     where TDep5 : class
     //     where TTenantInfo : class, ITenantInfo, new()
     // {
-    //     if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
+    //     if (configureOptions is null) throw new ArgumentNullException(nameof(configureOptions));
     //
     //     FinbuckleServiceCollectionExtensions.ConfigurePerTenantReqs<TOptions>(optionsBuilder.Services);
     //

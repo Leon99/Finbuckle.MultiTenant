@@ -29,10 +29,10 @@ public class EFCoreStore<TEFCoreStoreDbContext, TTenantInfo>(TEFCoreStoreDbConte
         return await DbContext.TenantInfos.AsNoTracking().ToListAsync();
     }
 
-    public virtual async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public virtual async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
         return await DbContext.TenantInfos.AsNoTracking()
-            .Where(ti => ti.Identifier == identifier)
+            .Where(ti => ti.Key == key)
             .SingleOrDefaultAsync();
     }
 
@@ -45,10 +45,10 @@ public class EFCoreStore<TEFCoreStoreDbContext, TTenantInfo>(TEFCoreStoreDbConte
         return result;
     }
 
-    public virtual async Task<bool> TryRemoveAsync(string identifier)
+    public virtual async Task<bool> TryRemoveAsync(string key)
     {
         var existing = await DbContext.TenantInfos
-            .Where(ti => ti.Identifier == identifier)
+            .Where(ti => ti.Key == key)
             .SingleOrDefaultAsync();
 
         if (existing is null)

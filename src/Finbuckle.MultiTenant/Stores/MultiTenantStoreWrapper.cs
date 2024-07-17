@@ -81,15 +81,15 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     }
 
     /// <inheritdoc />
-    public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
-        ArgumentNullException.ThrowIfNull(identifier);
+        ArgumentNullException.ThrowIfNull(key);
 
         TTenantInfo? result = null;
 
         try
         {
-            result = await Store.TryGetByIdentifierAsync(identifier);
+            result = await Store.TryGetByKeyAsync(key);
         }
         catch (Exception e)
         {
@@ -101,7 +101,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             if (_logger.IsEnabled(LogLevel.Debug))
             {
                 _logger.LogDebug("TryGetByIdentifierAsync: Tenant found with identifier \"{TenantIdentifier}\"",
-                    identifier);
+                    key);
             }
         }
         else
@@ -110,7 +110,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             {
                 _logger.LogDebug(
                     "TryGetByIdentifierAsync: Unable to find Tenant with identifier \"{TenantIdentifier}\"",
-                    identifier);
+                    key);
             }
         }
 
@@ -122,14 +122,14 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     {
         ArgumentNullException.ThrowIfNull(tenantInfo);
         
-        if (tenantInfo.Id == null)
+        if (tenantInfo.Id is null)
         {
             throw new ArgumentNullException(nameof(tenantInfo.Id));
         }
 
-        if (tenantInfo.Identifier == null)
+        if (tenantInfo.Key is null)
         {
-            throw new ArgumentNullException(nameof(tenantInfo.Identifier));
+            throw new ArgumentNullException(nameof(tenantInfo.Key));
         }
 
         var result = false;
@@ -141,16 +141,16 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             {
                 _logger.LogDebug(
                     "TryAddAsync: Tenant already exists. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",
-                    tenantInfo.Id, tenantInfo.Identifier);
+                    tenantInfo.Id, tenantInfo.Key);
             }
             else
             {
-                existing = await TryGetByIdentifierAsync(tenantInfo.Identifier);
+                existing = await TryGetByKeyAsync(tenantInfo.Key);
                 if (existing != null)
                 {
                     _logger.LogDebug(
                         "TryAddAsync: Tenant already exists. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",
-                        tenantInfo.Id, tenantInfo.Identifier);
+                        tenantInfo.Id, tenantInfo.Key);
                 }
                 else
                     result = await Store.TryAddAsync(tenantInfo);
@@ -165,28 +165,28 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
         if (result)
         {
             _logger.LogDebug("TryAddAsync: Tenant added. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",
-                tenantInfo.Id, tenantInfo.Identifier);
+                tenantInfo.Id, tenantInfo.Key);
         }
         else
         {
             _logger.LogDebug(
                 "TryAddAsync: Unable to add Tenant. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",
-                tenantInfo.Id, tenantInfo.Identifier);
+                tenantInfo.Id, tenantInfo.Key);
         }
 
         return result;
     }
 
     /// <inheritdoc />
-    public async Task<bool> TryRemoveAsync(string identifier)
+    public async Task<bool> TryRemoveAsync(string key)
     {
-        ArgumentNullException.ThrowIfNull(identifier);
+        ArgumentNullException.ThrowIfNull(key);
 
         var result = false;
 
         try
         {
-            result = await Store.TryRemoveAsync(identifier);
+            result = await Store.TryRemoveAsync(key);
         }
         catch (Exception e)
         {
@@ -196,11 +196,11 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
         // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
         if (result)
         {
-            _logger.LogDebug("TryRemoveAsync: Tenant Identifier: \"{TenantIdentifier}\" removed", identifier);
+            _logger.LogDebug("TryRemoveAsync: Tenant Identifier: \"{TenantIdentifier}\" removed", key);
         }
         else
         {
-            _logger.LogDebug("TryRemoveAsync: Unable to remove Tenant Identifier: \"{TenantIdentifier}\"", identifier);
+            _logger.LogDebug("TryRemoveAsync: Unable to remove Tenant Identifier: \"{TenantIdentifier}\"", key);
         }
 
         return result;
@@ -211,7 +211,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     {
         ArgumentNullException.ThrowIfNull(tenantInfo);
 
-        if (tenantInfo.Id == null)
+        if (tenantInfo.Id is null)
         {
             throw new ArgumentNullException(nameof(tenantInfo.Id));
         }
@@ -221,7 +221,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
         try
         {
             var existing = await TryGetAsync(tenantInfo.Id);
-            if (existing == null)
+            if (existing is null)
             {
                 _logger.LogDebug("TryUpdateAsync: Tenant Id: \"{TenantId}\" not found", tenantInfo.Id);
             }

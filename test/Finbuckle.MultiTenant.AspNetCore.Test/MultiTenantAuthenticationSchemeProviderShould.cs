@@ -24,19 +24,19 @@ public class MultiTenantAuthenticationSchemeProviderShould
 
             services.ConfigureAllPerTenant<AuthenticationOptions, TenantInfo>((ao, ti) =>
             {
-                ao.DefaultChallengeScheme = ti.Identifier + "Scheme";
+                ao.DefaultChallengeScheme = ti.Key + "Scheme";
             });
 
             var sp = services.BuildServiceProvider();
 
             var tenant1 = new TenantInfo{
                 Id = "tenant1",
-                Identifier = "tenant1"
+                Key = "tenant1"
             };
             
             var tenant2 = new TenantInfo{
                 Id = "tenant2",
-                Identifier = "tenant2"
+                Key = "tenant2"
             };
             
             var mtc = new MultiTenantContext<TenantInfo>();

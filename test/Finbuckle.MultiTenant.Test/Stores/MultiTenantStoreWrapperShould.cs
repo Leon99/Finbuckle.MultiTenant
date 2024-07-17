@@ -68,7 +68,7 @@ public class MultiTenantStoreWrapperShould : MultiTenantStoreTestBase
     {
         var store = CreateTestStore();
 
-        var e = Assert.Throws<AggregateException>(() => store.TryGetByIdentifierAsync(null!).Result);
+        var e = Assert.Throws<AggregateException>(() => store.TryGetByKeyAsync(null!).Result);
         Assert.IsType<ArgumentNullException>(e.InnerException);
     }
 
@@ -108,7 +108,7 @@ public class MultiTenantStoreWrapperShould : MultiTenantStoreTestBase
     {
         var store = CreateTestStore();
         // Try to add with duplicate identifier.
-        Assert.False(await store.TryAddAsync(new TenantInfo { Id = "initech-id", Identifier = "initech2" }));
+        Assert.False(await store.TryAddAsync(new TenantInfo { Id = "initech-id", Key = "initech2" }));
     }
 
     [Fact]
@@ -116,7 +116,7 @@ public class MultiTenantStoreWrapperShould : MultiTenantStoreTestBase
     {
         var store = CreateTestStore();
         // Try to add with duplicate identifier.
-        Assert.False(await store.TryAddAsync(new TenantInfo { Id = "initech-id2", Identifier = "initech" }));
+        Assert.False(await store.TryAddAsync(new TenantInfo { Id = "initech-id2", Key = "initech" }));
     }
 
     [Fact]

@@ -1,10 +1,12 @@
 // Copyright Finbuckle LLC, Andrew White, and Contributors.
 // Refer to the solution LICENSE file for more information.
 
+using System;
 using System.Linq;
 using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.Internal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 // ReSharper disable once CheckNamespace
 namespace Finbuckle.MultiTenant;
@@ -28,14 +30,16 @@ public static class FinbuckleModelBuilderExtensions
         return modelBuilder;
     }
 
-    public static void ConfigureTenantInfoEntity<T>(this ModelBuilder modelBuilder) where T : class, ITenantInfo
+    public static ModelBuilder ConfigureTenantInfoEntity<TEntity>(this ModelBuilder modelBuilder,
+        Action<EntityTypeBuilder<TEntity>>? buildAction = null)
+        where TEntity : class, ITenantInfo
     {
-        modelBuilder.Entity<T>(entity =>
+        return modelBuilder.Entity<TEntity>(entity =>
         {
             entity.HasKey(ti => ti.Id);
             entity.Property(ti => ti.Id).HasMaxLength(Constants.TenantIdMaxLength);
-            entity.HasIndex(ti => ti.Identifier).IsUnique();
+            entity.HasIndex(ti => ti.Key).IsUnique();
+            buildAction?.Invoke(entity);
         });
     }
-
 }

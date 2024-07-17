@@ -29,7 +29,7 @@ internal class MultiTenantAuthenticationService<TTenantInfo>(
             {
                 properties ??= new AuthenticationProperties();
                 if(!properties.Items.Keys.Contains(Constants.TenantToken))
-                    properties.Items.Add(Constants.TenantToken, multiTenantContext.TenantInfo.Identifier);
+                    properties.Items.Add(Constants.TenantToken, multiTenantContext.TenantInfo.Key);
             }
     }
 
@@ -40,7 +40,7 @@ internal class MultiTenantAuthenticationService<TTenantInfo>(
     {
         if (multiTenantAuthenticationOptions.CurrentValue.SkipChallengeIfTenantNotResolved)
         {
-            if (context.GetMultiTenantContext<TTenantInfo>()?.TenantInfo == null)
+            if (context.GetMultiTenantContext<TTenantInfo>()?.TenantInfo is null)
                 return;
         }
 

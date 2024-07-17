@@ -118,17 +118,17 @@ public static class MultiTenantBuilderExtensions
     /// Adds and configures a StaticStrategy to the application.
     /// </summary>
     /// <param name="builder">The builder instance.</param>
-    /// <param name="identifier">The tenant identifier to use for all tenant resolution.</param>
+    /// <param name="key">The tenant identifier to use for all tenant resolution.</param>
     public static MultiTenantBuilder<TTenantInfo> WithStaticStrategy<TTenantInfo>(this MultiTenantBuilder<TTenantInfo> builder,
-        string identifier)
+        string key)
         where TTenantInfo : class, ITenantInfo, new()
     {
-        if (string.IsNullOrWhiteSpace(identifier))
+        if (string.IsNullOrWhiteSpace(key))
         {
-            throw new ArgumentNullException(nameof(identifier), "Invalid value for \"identifier\"");
+            throw new ArgumentNullException(nameof(key), "Invalid value");
         }
 
-        return builder.WithStrategy<StaticStrategy>(ServiceLifetime.Singleton, new object[] { identifier });
+        return builder.WithStrategy<StaticStrategy>(ServiceLifetime.Singleton, new object[] { key });
     }
 
     /// <summary>

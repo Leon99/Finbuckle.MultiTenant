@@ -6,12 +6,12 @@
     "Tenants": [
       {
         "Id":  "initech-id",
-        "Identifier": "initech",
+        "Key": "initech",
         "Name": "Initech"
       },
       {
         "Id": "lol-id",
-        "Identifier": "lol",
+        "Key": "lol",
         "Name": "LOL",
         "ConnectionString": "Datasource=lol.db"
       }

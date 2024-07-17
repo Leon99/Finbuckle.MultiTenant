@@ -78,7 +78,7 @@ public class RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCa
 
                         var properties = ((dynamic)options).StateDataFormat.Unprotect(state) as AuthenticationProperties;
 
-                        if (properties == null)
+                        if (properties is null)
                         {
                             if (logger != null)
                                 logger.LogWarning("A tenant could not be determined because no state parameter passed with the remote authentication callback");

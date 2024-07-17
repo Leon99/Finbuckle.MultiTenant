@@ -29,7 +29,7 @@ public static class MultiTenantDbContextExtensions
         // ensure tenant context is valid
         if (changedMultiTenantEntities.Any())
         {
-            if (tenantInfo == null)
+            if (tenantInfo is null)
                 throw new MultiTenantException("MultiTenant Entity cannot be changed if TenantInfo is null.");
         }
 
@@ -64,7 +64,7 @@ public static class MultiTenantDbContextExtensions
 
         // for added entities TenantNotSetMode is always Overwrite
         var notSetAdded = addedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue == null);
+            Where(e => (string?)e.Property("TenantId").CurrentValue is null);
 
         foreach (var e in notSetAdded)
         {
@@ -102,7 +102,7 @@ public static class MultiTenantDbContextExtensions
 
         // handle Tenant ID not set for modified entities
         var notSetModified = modifiedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue == null).ToList();
+            Where(e => (string?)e.Property("TenantId").CurrentValue is null).ToList();
 
         if (notSetModified.Any())
         {
@@ -148,7 +148,7 @@ public static class MultiTenantDbContextExtensions
 
         // handle Tenant Id not set for deleted entities
         var notSetDeleted = deletedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue == null).ToList();
+            Where(e => (string?)e.Property("TenantId").CurrentValue is null).ToList();
 
         if (notSetDeleted.Any())
         {

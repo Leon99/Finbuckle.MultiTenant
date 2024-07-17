@@ -69,12 +69,12 @@ public class TenantResolverShould
         var sp = services.BuildServiceProvider();
         await sp.GetServices<IMultiTenantStore<TenantInfo>>()
             .Single(i => i.GetType() == typeof(InMemoryStore<TenantInfo>))
-            .TryAddAsync(new TenantInfo { Id = "null", Identifier = "null" });
+            .TryAddAsync(new TenantInfo { Id = "null", Key = "null" });
 
         var resolver = sp.GetRequiredService<ITenantResolver<TenantInfo>>();
         var result = await resolver.ResolveAsync(new object());
 
-        Assert.Equal("initech", result.TenantInfo!.Identifier);
+        Assert.Equal("initech", result.TenantInfo!.Key);
         Assert.IsType<StaticStrategy>(result.StrategyInfo!.Strategy);
         Assert.IsType<ConfigurationStore<TenantInfo>>(result.StoreInfo!.Store);
     }
@@ -115,12 +115,12 @@ public class TenantResolverShould
         var sp = services.BuildServiceProvider();
         await sp.GetServices<IMultiTenantStore<TenantInfo>>()
             .Single(i => i.GetType() == typeof(InMemoryStore<TenantInfo>))
-            .TryAddAsync(new TenantInfo { Id = "null", Identifier = "null" });
+            .TryAddAsync(new TenantInfo { Id = "null", Key = "null" });
 
         var resolver = sp.GetRequiredService<ITenantResolver<TenantInfo>>();
         var result = await resolver.ResolveAsync(new object());
 
-        Assert.Equal("initech", result.TenantInfo!.Identifier);
+        Assert.Equal("initech", result.TenantInfo!.Key);
         Assert.IsType<StaticStrategy>(result.StrategyInfo!.Strategy);
         Assert.IsType<ConfigurationStore<TenantInfo>>(result.StoreInfo!.Store);
     }
@@ -148,7 +148,7 @@ public class TenantResolverShould
         await resolver.ResolveAsync(new object());
 
         Assert.NotNull(resolvedContext);
-        Assert.Equal("initech", resolvedContext.TenantInfo!.Identifier);
+        Assert.Equal("initech", resolvedContext.TenantInfo!.Key);
         Assert.Equal(typeof(StaticStrategy), resolvedContext.StrategyType);
         Assert.Equal(typeof(ConfigurationStore<TenantInfo>), resolvedContext.StoreType);
     }

@@ -88,7 +88,7 @@ public class RouteStrategyShould
                 });
 
                 var store = app.ApplicationServices.GetRequiredService<IMultiTenantStore<TenantInfo>>();
-                store.TryAddAsync(new TenantInfo { Id = identifier, Identifier = identifier }).Wait();
+                store.TryAddAsync(new TenantInfo { Id = identifier, Key = identifier }).Wait();
             });
     }
 }

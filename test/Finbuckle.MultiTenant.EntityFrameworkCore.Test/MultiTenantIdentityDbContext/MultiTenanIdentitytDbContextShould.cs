@@ -29,7 +29,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContext(tenant1);
@@ -50,7 +50,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContext(tenant1);
@@ -75,7 +75,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContext(tenant1);
@@ -100,7 +100,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContext(tenant1);
@@ -121,7 +121,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContextTUser(tenant1);
@@ -142,7 +142,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContextTUserTRole(tenant1);
@@ -163,7 +163,7 @@ public class MultiTenantIdentityDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         using var c = new TestIdentityDbContextAll(tenant1);

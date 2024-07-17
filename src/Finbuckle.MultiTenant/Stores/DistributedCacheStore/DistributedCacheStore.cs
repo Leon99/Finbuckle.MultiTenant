@@ -38,7 +38,7 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
         var bytes = JsonSerializer.Serialize(tenantInfo);
 
         await _cache.SetStringAsync($"{_keyPrefix}id__{tenantInfo.Id}", bytes, options);
-        await _cache.SetStringAsync($"{_keyPrefix}identifier__{tenantInfo.Identifier}", bytes, options);
+        await _cache.SetStringAsync($"{_keyPrefix}identifier__{tenantInfo.Key}", bytes, options);
 
         return true;
     }
@@ -47,13 +47,13 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     public async Task<TTenantInfo?> TryGetAsync(string id)
     {
         var bytes = await _cache.GetStringAsync($"{_keyPrefix}id__{id}");
-        if (bytes == null)
+        if (bytes is null)
             return null;
 
         var result = JsonSerializer.Deserialize<TTenantInfo>(bytes);
 
         // Refresh the identifier version to keep things synced
-        await _cache.RefreshAsync($"{_keyPrefix}identifier__{result?.Identifier}");
+        await _cache.RefreshAsync($"{_keyPrefix}identifier__{result?.Key}");
 
         return result;
     }
@@ -68,10 +68,10 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     }
 
     /// <inheritdoc />
-    public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
-        var bytes = await _cache.GetStringAsync($"{_keyPrefix}identifier__{identifier}");
-        if (bytes == null)
+        var bytes = await _cache.GetStringAsync($"{_keyPrefix}identifier__{key}");
+        if (bytes is null)
             return null;
 
         var result = JsonSerializer.Deserialize<TTenantInfo>(bytes);
@@ -83,14 +83,14 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     }
 
     /// <inheritdoc />
-    public async Task<bool> TryRemoveAsync(string identifier)
+    public async Task<bool> TryRemoveAsync(string key)
     {
-        var result = await TryGetByIdentifierAsync(identifier);
-        if (result == null)
+        var result = await TryGetByKeyAsync(key);
+        if (result is null)
             return false;
 
         await _cache.RemoveAsync($"{_keyPrefix}id__{result.Id}");
-        await _cache.RemoveAsync($"{_keyPrefix}identifier__{result.Identifier}");
+        await _cache.RemoveAsync($"{_keyPrefix}identifier__{result.Key}");
 
         return true;
     }

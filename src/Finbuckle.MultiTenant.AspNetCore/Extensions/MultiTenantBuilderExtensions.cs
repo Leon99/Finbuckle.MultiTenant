@@ -75,7 +75,7 @@ public static class MultiTenantBuilderExtensions
                         $"{Constants.TenantToken}__bypass_validate_principal__"))
                     return;
 
-                var currentTenant = context.HttpContext.GetMultiTenantContext<TTenantInfo>().TenantInfo?.Identifier;
+                var currentTenant = context.HttpContext.GetMultiTenantContext<TTenantInfo>().TenantInfo?.Key;
                 string? authTenant = null;
                 if (context.Properties.Items.TryGetValue(Constants.TenantToken, out var item))
                 {
@@ -100,26 +100,26 @@ public static class MultiTenantBuilderExtensions
         builder.Services.ConfigureAllPerTenant<CookieAuthenticationOptions, TTenantInfo>((options, tc) =>
         {
             if (GetPropertyWithValidValue(tc, "CookieLoginPath") is string loginPath)
-                options.LoginPath = loginPath.Replace(Constants.TenantToken, tc.Identifier);
+                options.LoginPath = loginPath.Replace(Constants.TenantToken, tc.Key);
 
             if (GetPropertyWithValidValue(tc, "CookieLogoutPath") is string logoutPath)
-                options.LogoutPath = logoutPath.Replace(Constants.TenantToken, tc.Identifier);
+                options.LogoutPath = logoutPath.Replace(Constants.TenantToken, tc.Key);
 
             if (GetPropertyWithValidValue(tc, "CookieAccessDeniedPath") is string accessDeniedPath)
-                options.AccessDeniedPath = accessDeniedPath.Replace(Constants.TenantToken, tc.Identifier);
+                options.AccessDeniedPath = accessDeniedPath.Replace(Constants.TenantToken, tc.Key);
         });
 
         // Set per-tenant OpenIdConnect options by convention.
         builder.Services.ConfigureAllPerTenant<OpenIdConnectOptions, TTenantInfo>((options, tc) =>
         {
             if (GetPropertyWithValidValue(tc, "OpenIdConnectAuthority") is string authority)
-                options.Authority = authority.Replace(Constants.TenantToken, tc.Identifier);
+                options.Authority = authority.Replace(Constants.TenantToken, tc.Key);
 
             if (GetPropertyWithValidValue(tc, "OpenIdConnectClientId") is string clientId)
-                options.ClientId = clientId.Replace(Constants.TenantToken, tc.Identifier);
+                options.ClientId = clientId.Replace(Constants.TenantToken, tc.Key);
 
             if (GetPropertyWithValidValue(tc, "OpenIdConnectClientSecret") is string clientSecret)
-                options.ClientSecret = clientSecret.Replace(Constants.TenantToken, tc.Identifier);
+                options.ClientSecret = clientSecret.Replace(Constants.TenantToken, tc.Key);
         });
 
         builder.Services.ConfigureAllPerTenant<AuthenticationOptions, TTenantInfo>((options, tc) =>
@@ -227,7 +227,7 @@ public static class MultiTenantBuilderExtensions
                     httpContext.RequestServices.GetRequiredService<IOptions<BasePathStrategyOptions>>().Value
                         .RebaseAspNetCorePathBase)
                 {
-                    httpContext.Request.Path.StartsWithSegments($"/{tenantResolvedContext.TenantInfo?.Identifier}",
+                    httpContext.Request.Path.StartsWithSegments($"/{tenantResolvedContext.TenantInfo?.Key}",
                         out var matched, out var
                             newPath);
                     httpContext.Request.PathBase = httpContext.Request.PathBase.Add(matched);

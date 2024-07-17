@@ -67,7 +67,7 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
             tenantSection.Bind(newTenant, options => options.BindNonPublicProperties = true);
 
             // Throws an ArgumentNullException if the identifier is null.
-            newMap.TryAdd(newTenant.Identifier!, newTenant);
+            newMap.TryAdd(newTenant.Key!, newTenant);
         }
 
         _tenantMap = newMap;
@@ -97,23 +97,23 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
     }
 
     /// <inheritdoc />
-    public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
-        ArgumentNullException.ThrowIfNull(identifier);
+        ArgumentNullException.ThrowIfNull(key);
 
         if (_tenantMap is null)
         {
             return null;
         }
 
-        return await Task.FromResult(_tenantMap.TryGetValue(identifier, out var result) ? result : null);
+        return await Task.FromResult(_tenantMap.TryGetValue(key, out var result) ? result : null);
     }
 
     /// <summary>
     /// Not implemented in this implementation.
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    public Task<bool> TryRemoveAsync(string identifier)
+    public Task<bool> TryRemoveAsync(string key)
     {
         throw new NotImplementedException();
     }

@@ -28,7 +28,7 @@ public class MultiTenantBuilderExtensionsShould
     private class TestTenantInfo : ITenantInfo
     {
         public string? Id { get; set; }
-        public string? Identifier { get; set; }
+        public string? Key { get; set; }
         public string? Name { get; set; }
         public string? ConnectionString { get; set; }
 
@@ -54,7 +54,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc" }
+                TenantInfo = new TenantInfo { Key = "abc" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -100,7 +100,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc" }
+                TenantInfo = new TenantInfo { Key = "abc" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -137,7 +137,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc" }
+                TenantInfo = new TenantInfo { Key = "abc" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -176,7 +176,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc1" }
+                TenantInfo = new TenantInfo { Key = "abc1" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -220,7 +220,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc1" }
+                TenantInfo = new TenantInfo { Key = "abc1" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -262,7 +262,7 @@ public class MultiTenantBuilderExtensionsShould
             // Fake a resolved tenant
             var mtc = new MultiTenantContext<TenantInfo>
             {
-                TenantInfo = new TenantInfo { Identifier = "abc1" }
+                TenantInfo = new TenantInfo { Key = "abc1" }
             };
             sp.GetRequiredService<IMultiTenantContextSetter>().MultiTenantContext = mtc;
 
@@ -355,7 +355,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 ChallengeScheme = "customScheme"
             };
 
@@ -382,7 +382,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 ChallengeScheme = "customScheme"
             };
 
@@ -413,7 +413,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1"
+                Key = "identifier1"
             };
 
             var setter = sp.GetRequiredService<IMultiTenantContextSetter>();
@@ -441,7 +441,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 OpenIdConnectAuthority = "https://tenant",
                 OpenIdConnectClientId = "tenant",
                 OpenIdConnectClientSecret = "secret"
@@ -472,7 +472,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 OpenIdConnectAuthority = "https://tenant",
                 OpenIdConnectClientId = "tenant",
                 OpenIdConnectClientSecret = "secret"
@@ -509,7 +509,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1"
+                Key = "identifier1"
             };
             
             var setter = sp.GetRequiredService<IMultiTenantContextSetter>();
@@ -536,7 +536,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 CookieLoginPath = "/path1",
                 CookieLogoutPath = "/path2",
                 CookieAccessDeniedPath = "/path3"
@@ -566,7 +566,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TestTenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1",
+                Key = "identifier1",
                 CookieLoginPath = "/path1",
                 CookieLogoutPath = "/path2",
                 CookieAccessDeniedPath = "/path3"
@@ -601,7 +601,7 @@ public class MultiTenantBuilderExtensionsShould
             var ti1 = new TenantInfo
             {
                 Id = "id1",
-                Identifier = "identifier1"
+                Key = "identifier1"
             };
 
             var setter = sp.GetRequiredService<IMultiTenantContextSetter>();

@@ -83,14 +83,14 @@ public class MultiTenantBuilderExtensionsShould
         var store = sp.GetRequiredService<IMultiTenantStore<TenantInfo>>();
         Assert.IsType<ConfigurationStore<TenantInfo>>(store);
 
-        var tc = await store.TryGetByIdentifierAsync("initech");
+        var tc = await store.TryGetByKeyAsync("initech");
         Assert.Equal("initech-id", tc!.Id);
-        Assert.Equal("initech", tc.Identifier);
+        Assert.Equal("initech", tc.Key);
         Assert.Equal("Initech", tc.Name);
 
-        tc = await store.TryGetByIdentifierAsync("lol");
+        tc = await store.TryGetByKeyAsync("lol");
         Assert.Equal("lol-id", tc!.Id);
-        Assert.Equal("lol", tc.Identifier);
+        Assert.Equal("lol", tc.Key);
         Assert.Equal("LOL", tc.Name);
     }
 
@@ -112,14 +112,14 @@ public class MultiTenantBuilderExtensionsShould
         var store = sp.GetRequiredService<IMultiTenantStore<TenantInfo>>();
         Assert.IsType<ConfigurationStore<TenantInfo>>(store);
 
-        var tc = await store.TryGetByIdentifierAsync("initech");
+        var tc = await store.TryGetByKeyAsync("initech");
         Assert.Equal("initech-id", tc!.Id);
-        Assert.Equal("initech", tc.Identifier);
+        Assert.Equal("initech", tc.Key);
         Assert.Equal("Initech", tc.Name);
 
-        tc = await store.TryGetByIdentifierAsync("lol");
+        tc = await store.TryGetByKeyAsync("lol");
         Assert.Equal("lol-id", tc!.Id);
-        Assert.Equal("lol", tc.Identifier);
+        Assert.Equal("lol", tc.Key);
         Assert.Equal("LOL", tc.Name);
     }
 
@@ -140,20 +140,20 @@ public class MultiTenantBuilderExtensionsShould
         builder.WithInMemoryStore(options =>
         {
             options.IsCaseSensitive = true;
-            options.Tenants.Add(new TenantInfo{ Id = "lol", Identifier = "lol", Name = "LOL"});
+            options.Tenants.Add(new TenantInfo{ Id = "lol", Key = "lol", Name = "LOL"});
         });
         var sp = services.BuildServiceProvider();
 
         var store = sp.GetRequiredService<IMultiTenantStore<TenantInfo>>();
         Assert.IsType<InMemoryStore<TenantInfo>>(store);
 
-        var tc = await store.TryGetByIdentifierAsync("lol");
+        var tc = await store.TryGetByKeyAsync("lol");
         Assert.Equal("lol", tc!.Id);
-        Assert.Equal("lol", tc.Identifier);
+        Assert.Equal("lol", tc.Key);
         Assert.Equal("LOL", tc.Name);
 
         // Case sensitive test.
-        tc = await store.TryGetByIdentifierAsync("LOL");
+        tc = await store.TryGetByKeyAsync("LOL");
         Assert.Null(tc);
     }
 

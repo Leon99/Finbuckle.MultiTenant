@@ -38,7 +38,7 @@
                             <li><a class="dropdown-item" href=@($"/")>(None)</a></li>
                             @foreach (var tenant in await _tenantStore.GetAllAsync())
                             {
-                                <li><a class="dropdown-item" href=@($"/{tenant.Identifier}")>@tenant.Name</a></li>
+                                <li><a class="dropdown-item" href=@($"/{tenant.Key}")>@tenant.Name</a></li>
                             }
                         </ul>
                     </li>

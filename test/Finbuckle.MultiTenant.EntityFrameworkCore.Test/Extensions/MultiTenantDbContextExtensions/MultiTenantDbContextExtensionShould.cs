@@ -31,7 +31,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 
@@ -45,7 +45,7 @@ public class MultiTenantDbContextExtensionsShould
                 var blog1 = new Blog { Title = "abc" };
                 db.Blogs?.Add(blog1);
                 db.SaveChanges();
-                Assert.Equal(tenant1.Identifier, db.Entry(blog1).Property("TenantId").CurrentValue);
+                Assert.Equal(tenant1.Key, db.Entry(blog1).Property("TenantId").CurrentValue);
             }
 
             // TenantNotSetMode.Overwrite
@@ -76,7 +76,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 
@@ -137,7 +137,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 
@@ -189,7 +189,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 
@@ -258,7 +258,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 
@@ -311,7 +311,7 @@ public class MultiTenantDbContextExtensionsShould
             var tenant1 = new TenantInfo
             {
                 Id = "abc",
-                Identifier = "abc",
+                Key = "abc",
                 Name = "abc"
             };
 

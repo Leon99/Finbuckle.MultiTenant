@@ -30,7 +30,7 @@ public class MultiTenantDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         var c = new TestBlogDbContext(tenant1);
@@ -44,7 +44,7 @@ public class MultiTenantDbContextShould
         var tenant1 = new TenantInfo
         {
             Id = "abc",
-            Identifier = "abc",
+            Key = "abc",
             Name = "abc"
         };
         var c = new TestBlogDbContext(tenant1, new DbContextOptions<TestBlogDbContext>());

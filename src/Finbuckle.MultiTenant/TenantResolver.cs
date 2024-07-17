@@ -63,15 +63,15 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
                 identifier = null;
             }
 
-            if (identifier == null)
+            if (identifier is null)
                 continue;
 
             foreach (var store in Stores)
             {
                 var wrappedStore = new MultiTenantStoreWrapper<TTenantInfo>(store,
                     _loggerFactory?.CreateLogger(store.GetType()) ?? NullLogger.Instance);
-                var tenantInfo = await wrappedStore.TryGetByIdentifierAsync(identifier);
-                if (tenantInfo == null)
+                var tenantInfo = await wrappedStore.TryGetByKeyAsync(identifier);
+                if (tenantInfo is null)
                     continue;
 
                 await _options.CurrentValue.Events.OnTenantResolved(new TenantResolvedContext

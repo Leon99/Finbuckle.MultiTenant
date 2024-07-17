@@ -23,13 +23,13 @@ public class InMemoryStoreShould : MultiTenantStoreTestBase
         var ti1 = new TenantInfo
         {
             Id = "initech",
-            Identifier = "initech",
+            Key = "initech",
             Name = "initech"
         };
         var ti2 = new TenantInfo
         {
             Id = "lol",
-            Identifier = "lol",
+            Key = "lol",
             Name = "lol"
         };
         store.TryAddAsync(ti1).Wait();
@@ -42,15 +42,15 @@ public class InMemoryStoreShould : MultiTenantStoreTestBase
     public async Task GetTenantInfoFromStoreCaseInsensitiveByDefault()
     {
         var store = CreateTestStore();
-        Assert.Equal("initech", (await store.TryGetByIdentifierAsync("iNitEch"))?.Identifier);
+        Assert.Equal("initech", (await store.TryGetByKeyAsync("iNitEch"))?.Key);
     }
 
     [Fact]
     public async Task GetTenantInfoFromStoreCaseSensitive()
     {
         var store = CreateCaseSensitiveTestStore();
-        Assert.Equal("initech", (await store.TryGetByIdentifierAsync("initech"))?.Identifier);
-        Assert.Null(await store.TryGetByIdentifierAsync("iNitEch"));
+        Assert.Equal("initech", (await store.TryGetByKeyAsync("initech"))?.Key);
+        Assert.Null(await store.TryGetByKeyAsync("iNitEch"));
     }
 
     [Fact]
@@ -60,13 +60,13 @@ public class InMemoryStoreShould : MultiTenantStoreTestBase
         var ti1 = new TenantInfo
         {
             Id = "initech",
-            Identifier = "initech",
+            Key = "initech",
             Name = "initech"
         };
         var ti2 = new TenantInfo
         {
             Id = "iNiTEch",
-            Identifier = "iNiTEch",
+            Key = "iNiTEch",
             Name = "Initech"
         };
         Assert.False(await store.TryAddAsync(ti1));
@@ -92,8 +92,8 @@ public class InMemoryStoreShould : MultiTenantStoreTestBase
         var services = new ServiceCollection();
         services.AddOptions().Configure<InMemoryStoreOptions<TenantInfo>>(options =>
         {
-            options.Tenants.Add(new TenantInfo { Id = "lol", Identifier = "lol", Name = "LOL" });
-            options.Tenants.Add(new TenantInfo { Id = "lol", Identifier = "lol", Name = "LOL" });
+            options.Tenants.Add(new TenantInfo { Id = "lol", Key = "lol", Name = "LOL" });
+            options.Tenants.Add(new TenantInfo { Id = "lol", Key = "lol", Name = "LOL" });
         });
         var sp = services.BuildServiceProvider();
 
@@ -113,7 +113,7 @@ public class InMemoryStoreShould : MultiTenantStoreTestBase
         var services = new ServiceCollection();
         services.AddOptions().Configure<InMemoryStoreOptions<TenantInfo>>(options =>
         {
-            options.Tenants.Add(new TenantInfo { Id = id, Identifier = identifier, Name = "LOL"});
+            options.Tenants.Add(new TenantInfo { Id = id, Key = identifier, Name = "LOL"});
         });
         var sp = services.BuildServiceProvider();
 

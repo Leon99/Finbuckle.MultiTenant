@@ -78,9 +78,9 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     }
 
     /// <inheritdoc />
-    public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
-        var result = await _client.TryGetByIdentifierAsync(_endpointTemplate, identifier);
+        var result = await _client.TryGetByIdentifierAsync(_endpointTemplate, key);
         return result;
     }
 
@@ -88,7 +88,7 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// Not implemented in this implementation.
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    public Task<bool> TryRemoveAsync(string identifier)
+    public Task<bool> TryRemoveAsync(string key)
     {
         throw new NotImplementedException();
     }

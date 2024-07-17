@@ -30,7 +30,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
     private static void AddStores(IServiceCollection services, Type userType, Type? roleType, Type contextType)
     {
         var identityUserType = FindGenericBaseType(userType, typeof(IdentityUser<>));
-        if (identityUserType == null)
+        if (identityUserType is null)
         {
             throw new InvalidOperationException("NotIdentityUser");
         }
@@ -40,7 +40,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
         if (roleType != null)
         {
             var identityRoleType = FindGenericBaseType(roleType, typeof(IdentityRole<>));
-            if (identityRoleType == null)
+            if (identityRoleType is null)
             {
                 throw new InvalidOperationException("NotIdentityRole");
             }
@@ -48,7 +48,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
             Type userStoreType;
             Type roleStoreType;
             var identityContext = FindGenericBaseType(contextType, typeof(IdentityDbContext<,,,,,,,>));
-            if (identityContext == null)
+            if (identityContext is null)
             {
                 // If it's a custom DbContext, we can only add the default POCOs
                 userStoreType = typeof(MultiTenantUserStore<,,,>).MakeGenericType(userType, roleType, contextType, keyType);
@@ -75,7 +75,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
         {   // No Roles
             Type userStoreType;
             var identityContext = FindGenericBaseType(contextType, typeof(IdentityUserContext<,,,,>));
-            if (identityContext == null)
+            if (identityContext is null)
             {
                 // If it's a custom DbContext, we can only add the default POCOs
                 userStoreType = typeof(UserOnlyStore<,,>).MakeGenericType(userType, contextType, keyType);

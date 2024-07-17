@@ -136,7 +136,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
             scheme = await _inner.GetSchemeAsync(name);
         }
 
-        if (scheme == null)
+        if (scheme is null)
         {
             scheme = _schemes.ContainsKey(name) ? _schemes[name] : null;
         }

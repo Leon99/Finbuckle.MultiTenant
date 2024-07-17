@@ -273,12 +273,12 @@ public class MultiTenantBuilderShould
                 throw new NotImplementedException();
             }
 
-        public Task<TTenant?> TryGetByIdentifierAsync(string identifier)
+        public Task<TTenant?> TryGetByKeyAsync(string key)
         {
                 throw new NotImplementedException();
             }
 
-        public Task<bool> TryRemoveAsync(string identifier)
+        public Task<bool> TryRemoveAsync(string key)
         {
                 throw new NotImplementedException();
             }

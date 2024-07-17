@@ -26,17 +26,17 @@ public interface IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITena
     /// <summary>
     /// Try to remove the TTenantInfo from the store.
     /// </summary>
-    /// <param name="identifier">Identifier for the tenant to remove.</param>
+    /// <param name="key">Identifier for the tenant to remove.</param>
     /// <returns>True if successfully removed.</returns>
-    Task<bool> TryRemoveAsync(string identifier);
+    Task<bool> TryRemoveAsync(string key);
 
     /// <summary>
     /// Retrieve the TTenantInfo for a given identifier.
     /// </summary>
-    /// <param name="identifier">Identifier for the tenant to retrieve.</param>
+    /// <param name="key">Identifier for the tenant to retrieve.</param>
     /// <returns>The found TTenantInfo instance or null if none found.</returns>
     ///  TODO make obsolete
-    Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier);
+    Task<TTenantInfo?> TryGetByKeyAsync(string key);
 
     /// <summary>
     /// Retrieve the TTenantInfo for a given tenant Id.

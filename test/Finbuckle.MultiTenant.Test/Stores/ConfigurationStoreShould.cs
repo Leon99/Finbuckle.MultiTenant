@@ -55,10 +55,10 @@ public class ConfigurationStoreShould : MultiTenantStoreTestBase
     {
             var store = CreateTestStore();
 
-            var tenant = await store.TryGetByIdentifierAsync("INITECH");
+            var tenant = await store.TryGetByKeyAsync("INITECH");
 
             Assert.NotNull(tenant);
-            Assert.Equal("initech", tenant.Identifier);
+            Assert.Equal("initech", tenant.Key);
         }
 
     [Fact]
@@ -66,7 +66,7 @@ public class ConfigurationStoreShould : MultiTenantStoreTestBase
     {
             var store = CreateTestStore();
 
-            await Assert.ThrowsAsync<ArgumentNullException>(async () => await store.TryGetByIdentifierAsync(null!));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await store.TryGetByKeyAsync(null!));
         }
 
     // Basic store functionality tested in MultiTenantStoresShould.cs

@@ -28,7 +28,7 @@ public class DistributedCacheStoreShould : MultiTenantStoreTestBase
         Assert.True(r);
 
         var t1 = await store.TryGetAsync("lol-id");
-        var t2 = await store.TryGetByIdentifierAsync("lol");
+        var t2 = await store.TryGetByKeyAsync("lol");
 
         Assert.Null(t1);
         Assert.Null(t2);
@@ -49,15 +49,15 @@ public class DistributedCacheStoreShould : MultiTenantStoreTestBase
     {
         var store = CreateTestStore();
 
-        var t2 = await store.TryGetByIdentifierAsync("lol");
+        var t2 = await store.TryGetByKeyAsync("lol");
         var t1 = await store.TryGetAsync("lol-id");
 
         Assert.NotNull(t1);
         Assert.NotNull(t2);
         Assert.Equal("lol-id", t1.Id);
         Assert.Equal("lol-id", t2.Id);
-        Assert.Equal("lol", t1.Identifier);
-        Assert.Equal("lol", t2.Identifier);
+        Assert.Equal("lol", t1.Key);
+        Assert.Equal("lol", t2.Key);
     }
 
     [Fact]
@@ -67,14 +67,14 @@ public class DistributedCacheStoreShould : MultiTenantStoreTestBase
         Thread.Sleep(2000);
         var t1 = await store.TryGetAsync("lol-id");
         Thread.Sleep(2000);
-        var t2 = await store.TryGetByIdentifierAsync("lol");
+        var t2 = await store.TryGetByKeyAsync("lol");
 
         Assert.NotNull(t1);
         Assert.NotNull(t2);
         Assert.Equal("lol-id", t1.Id);
         Assert.Equal("lol-id", t2.Id);
-        Assert.Equal("lol", t1.Identifier);
-        Assert.Equal("lol", t2.Identifier);
+        Assert.Equal("lol", t1.Key);
+        Assert.Equal("lol", t2.Key);
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class DistributedCacheStoreShould : MultiTenantStoreTestBase
         var store = CreateTestStore();
         Thread.Sleep(3100);
         var t1 = await store.TryGetAsync("lol-id");
-        var t2 = await store.TryGetByIdentifierAsync("lol");
+        var t2 = await store.TryGetByKeyAsync("lol");
 
         Assert.Null(t1);
         Assert.Null(t2);

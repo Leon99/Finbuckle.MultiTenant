@@ -36,12 +36,12 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
         {
             if(String.IsNullOrWhiteSpace(tenant.Id))
                 throw new MultiTenantException("Missing tenant id in options.");
-            if(String.IsNullOrWhiteSpace(tenant.Identifier))
+            if(String.IsNullOrWhiteSpace(tenant.Key))
                 throw new MultiTenantException("Missing tenant identifier in options.");
-            if(_tenantMap.ContainsKey(tenant.Identifier))
+            if(_tenantMap.ContainsKey(tenant.Key))
                 throw new MultiTenantException("Duplicate tenant identifier in options.");
 
-            _tenantMap.TryAdd(tenant.Identifier, tenant);
+            _tenantMap.TryAdd(tenant.Key, tenant);
         }
     }
 
@@ -53,9 +53,9 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     }
 
     /// <inheritdoc />
-    public async Task<TTenantInfo?> TryGetByIdentifierAsync(string identifier)
+    public async Task<TTenantInfo?> TryGetByKeyAsync(string key)
     {
-        _tenantMap.TryGetValue(identifier, out var result);
+        _tenantMap.TryGetValue(key, out var result);
 
         return await Task.FromResult(result);
     }
@@ -69,15 +69,15 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<bool> TryAddAsync(TTenantInfo tenantInfo)
     {
-        var result = tenantInfo.Identifier != null && _tenantMap.TryAdd(tenantInfo.Identifier, tenantInfo);
+        var result = tenantInfo.Key != null && _tenantMap.TryAdd(tenantInfo.Key, tenantInfo);
 
         return await Task.FromResult(result);
     }
 
     /// <inheritdoc />
-    public async Task<bool> TryRemoveAsync(string identifier)
+    public async Task<bool> TryRemoveAsync(string key)
     {
-        var result = _tenantMap.TryRemove(identifier, out var _);
+        var result = _tenantMap.TryRemove(key, out var _);
 
         return await Task.FromResult(result);
     }
@@ -87,9 +87,9 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     {
         var existingTenantInfo = tenantInfo.Id != null ? await TryGetAsync(tenantInfo.Id) : null;
 
-        if (existingTenantInfo?.Identifier != null)
+        if (existingTenantInfo?.Key != null)
         {
-            var result =  _tenantMap.TryUpdate(existingTenantInfo.Identifier, tenantInfo, existingTenantInfo);
+            var result =  _tenantMap.TryUpdate(existingTenantInfo.Key, tenantInfo, existingTenantInfo);
             return await Task.FromResult(result);
         }
 

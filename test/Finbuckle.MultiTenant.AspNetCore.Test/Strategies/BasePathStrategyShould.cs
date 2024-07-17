@@ -33,7 +33,7 @@ public class BasePathStrategyShould
             options.Tenants.Add(new TenantInfo
             {
                 Id = "base123",
-                Identifier = "base",
+                Key = "base",
                 Name = "base tenant"
             });
         });
@@ -62,7 +62,7 @@ public class BasePathStrategyShould
             options.Tenants.Add(new TenantInfo
             {
                 Id = "base123",
-                Identifier = "base",
+                Key = "base",
                 Name = "base tenant"
             });
         });
@@ -116,7 +116,7 @@ public class BasePathStrategyShould
             options.Tenants.Add(new TenantInfo
             {
                 Id = "tenant",
-                Identifier = "tenant",
+                Key = "tenant",
                 Name = "tenant"
             });
         });
