@@ -3,8 +3,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Finbuckle.MultiTenant.Abstractions;
-using Microsoft.EntityFrameworkCore;
 
 namespace Finbuckle.MultiTenant.EntityFrameworkCore;
 

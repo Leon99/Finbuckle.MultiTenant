@@ -3,7 +3,7 @@
 
 using System.Reflection;
 
-namespace Finbuckle.MultiTenant.Internal;
+namespace Finbuckle.MultiTenant.EntityFrameworkCore.Extensions;
 
 internal static class TypeExtensions
 {
