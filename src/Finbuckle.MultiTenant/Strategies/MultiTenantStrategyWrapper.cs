@@ -12,7 +12,7 @@ public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger l
 
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    public async Task<string?> GetIdentifierAsync(object context)
+    public async Task<string?> GetKeyAsync(object context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
@@ -20,7 +20,7 @@ public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger l
 
         try
         {
-            identifier = await Strategy.GetIdentifierAsync(context);
+            identifier = await Strategy.GetKeyAsync(context);
         }
         catch (Exception e)
         {

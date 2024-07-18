@@ -31,9 +31,9 @@ public interface IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITena
     Task<bool> TryRemoveAsync(string key);
 
     /// <summary>
-    /// Retrieve the TTenantInfo for a given identifier.
+    /// Retrieve the TTenantInfo for a given key.
     /// </summary>
-    /// <param name="key">Identifier for the tenant to retrieve.</param>
+    /// <param name="key">Key of the tenant to retrieve.</param>
     /// <returns>The found TTenantInfo instance or null if none found.</returns>
     ///  TODO make obsolete
     Task<TTenantInfo?> TryGetByKeyAsync(string key);

@@ -37,7 +37,7 @@ public class RouteStrategyShould
         var context = new Object();
         var strategy = new RouteStrategy("__tenant__");
 
-        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetIdentifierAsync(context));
+        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetKeyAsync(context));
     }
 
     [Fact]

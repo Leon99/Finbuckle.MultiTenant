@@ -58,7 +58,7 @@ public class SessionStrategyShould
         var context = new Object();
         var strategy = new SessionStrategy("__tenant__");
 
-        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetIdentifierAsync(context));
+        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetKeyAsync(context));
     }
 
     [Fact]

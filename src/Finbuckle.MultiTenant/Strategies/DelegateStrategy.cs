@@ -9,9 +9,8 @@ public class DelegateStrategy(Func<object, Task<string?>> doStrategy) : IMultiTe
 {
     private readonly Func<object, Task<string?>> _doStrategy = doStrategy ?? throw new ArgumentNullException(nameof(doStrategy));
 
-    public async Task<string?> GetIdentifierAsync(object context)
+    public async Task<string?> GetKeyAsync(object context)
     {
-        var identifier = await _doStrategy(context);
-        return await Task.FromResult(identifier);
+        return await _doStrategy(context);
     }
 }

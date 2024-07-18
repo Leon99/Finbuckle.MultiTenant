@@ -92,7 +92,7 @@ public class BasePathStrategyShould
         var httpContext = CreateHttpContextMock(path);
         var strategy = new BasePathStrategy();
 
-        var identifier = await strategy.GetIdentifierAsync(httpContext);
+        var identifier = await strategy.GetKeyAsync(httpContext);
 
         Assert.Equal(expected, identifier);
     }
@@ -103,7 +103,7 @@ public class BasePathStrategyShould
         var context = new Object();
         var strategy = new BasePathStrategy();
 
-        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetIdentifierAsync(context));
+        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetKeyAsync(context));
     }
 
     [Fact]

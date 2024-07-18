@@ -43,7 +43,7 @@ public class HostStrategyShould
         var httpContext = CreateHttpContextMock(host);
         var strategy = new HostStrategy(template);
 
-        var identifier = await strategy.GetIdentifierAsync(httpContext);
+        var identifier = await strategy.GetKeyAsync(httpContext);
 
         Assert.Equal(expected, identifier);
     }
@@ -74,6 +74,6 @@ public class HostStrategyShould
         var context = new Object();
         var strategy = new HostStrategy("__tenant__.*");
 
-        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetIdentifierAsync(context));
+        await Assert.ThrowsAsync<MultiTenantException>(() => strategy.GetKeyAsync(context));
     }
 }

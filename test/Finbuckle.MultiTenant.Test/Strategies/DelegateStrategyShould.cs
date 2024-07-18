@@ -13,7 +13,7 @@ public class DelegateStrategyShould
     {
         int i = 0;
         var strategy = new DelegateStrategy(_ => Task.FromResult<string?>((i++).ToString()));
-        await strategy.GetIdentifierAsync(new object());
+        await strategy.GetKeyAsync(new object());
 
         Assert.Equal(1, i);
     }
@@ -25,7 +25,7 @@ public class DelegateStrategyShould
     public async Task ReturnDelegateResult(string? identifier)
     {
         var strategy = new DelegateStrategy(async _ => await Task.FromResult(identifier));
-        var result = await strategy.GetIdentifierAsync(new object());
+        var result = await strategy.GetKeyAsync(new object());
 
         Assert.Equal(identifier, result);
     }
@@ -34,7 +34,7 @@ public class DelegateStrategyShould
     public async Task BeAbleToReturnNull()
     {
         var strategy = new DelegateStrategy(async _ => await Task.FromResult<string?>(null));
-        var result = await strategy.GetIdentifierAsync(new object());
+        var result = await strategy.GetKeyAsync(new object());
 
         Assert.Null(result);
     }

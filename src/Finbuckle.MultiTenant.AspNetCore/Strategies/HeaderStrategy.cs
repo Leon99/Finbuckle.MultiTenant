@@ -13,12 +13,12 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class HeaderStrategy(string headerKey) : IMultiTenantStrategy
 {
-    public Task<string?> GetIdentifierAsync(object context)
+    public Task<string?> GetKeyAsync(object context)
     {
-            if (!(context is HttpContext httpContext))
-                throw new MultiTenantException(null,
-                    new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
+        if (!(context is HttpContext httpContext))
+            throw new MultiTenantException(null,
+                new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
 
-            return Task.FromResult(httpContext?.Request.Headers[headerKey].FirstOrDefault());
-        }
+        return Task.FromResult(httpContext?.Request.Headers[headerKey].FirstOrDefault());
+    }
 }

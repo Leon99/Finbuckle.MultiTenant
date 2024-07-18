@@ -54,7 +54,7 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
         {
             var wrappedStrategy = new MultiTenantStrategyWrapper(strategy,
                 _loggerFactory?.CreateLogger(strategy.GetType()) ?? NullLogger.Instance);
-            identifier = await wrappedStrategy.GetIdentifierAsync(context);
+            identifier = await wrappedStrategy.GetKeyAsync(context);
 
             if (_options.CurrentValue.IgnoredIdentifiers.Contains(identifier, StringComparer.OrdinalIgnoreCase))
             {

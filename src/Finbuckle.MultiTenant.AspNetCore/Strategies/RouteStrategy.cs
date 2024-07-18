@@ -14,26 +14,23 @@ public class RouteStrategy : IMultiTenantStrategy
 
     public RouteStrategy(string tenantParam)
     {
-            if (string.IsNullOrWhiteSpace(tenantParam))
-            {
-                throw new ArgumentException($"\"{nameof(tenantParam)}\" must not be null or whitespace", nameof(tenantParam));
-            }
-
-            this.TenantParam = tenantParam;
+        if (string.IsNullOrWhiteSpace(tenantParam))
+        {
+            throw new ArgumentException($"\"{nameof(tenantParam)}\" must not be null or whitespace",
+                nameof(tenantParam));
         }
 
-    public Task<string?> GetIdentifierAsync(object context)
+        this.TenantParam = tenantParam;
+    }
+
+    public Task<string?> GetKeyAsync(object context)
     {
+        if (!(context is HttpContext httpContext))
+            throw new MultiTenantException(null,
+                new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
 
-            if (!(context is HttpContext httpContext))
-                throw new MultiTenantException(null,
-                    new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
+        httpContext.Request.RouteValues.TryGetValue(TenantParam, out var key);
 
-            object? identifier;
-            httpContext.Request.RouteValues.TryGetValue(TenantParam, out identifier);
-
-            return Task.FromResult(identifier as string);
-        }
+        return Task.FromResult(key as string);
+    }
 }
-
-// #endif

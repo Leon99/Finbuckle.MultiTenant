@@ -19,7 +19,7 @@ public class StaticStrategyShould
         var strategy =
             new StaticStrategy(staticIdentifier!);
 
-        var identifier = await strategy.GetIdentifierAsync(new Object());
+        var identifier = await strategy.GetKeyAsync(new Object());
 
         Assert.Equal(staticIdentifier, identifier);
     }

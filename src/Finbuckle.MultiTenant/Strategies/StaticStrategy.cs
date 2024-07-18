@@ -5,14 +5,14 @@ using Finbuckle.MultiTenant.Abstractions;
 
 namespace Finbuckle.MultiTenant.Strategies;
 
-public class StaticStrategy(string identifier) : IMultiTenantStrategy
+public class StaticStrategy(string key) : IMultiTenantStrategy
 {
-    internal readonly string Identifier = identifier;
+    internal readonly string Key = key;
 
     public int Priority => -1000;
 
-    public async Task<string?> GetIdentifierAsync(object context)
+    public async Task<string?> GetKeyAsync(object context)
     {
-        return await Task.FromResult(Identifier);
+        return await Task.FromResult(Key);
     }
 }
