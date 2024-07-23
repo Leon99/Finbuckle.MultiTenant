@@ -24,7 +24,7 @@ public class MultiTenantOptionsCache<TOptions> : IOptionsMonitorCache<TOptions>
     /// <exception cref="ArgumentNullException"></exception>
     public MultiTenantOptionsCache(IMultiTenantContextAccessor multiTenantContextAccessor)
     {
-        this._multiTenantContextAccessor = multiTenantContextAccessor ??
+        _multiTenantContextAccessor = multiTenantContextAccessor ??
                                           throw new ArgumentNullException(nameof(multiTenantContextAccessor));
     }
 

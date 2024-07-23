@@ -41,7 +41,7 @@ public class SessionStrategyShould
                 app.Run(async context =>
                 {
                     context.Session.SetString(sessionKey, identifier);
-                    if (context.GetMultiTenantContext<TenantInfo>()?.TenantInfo != null)
+                    if (context.GetMultiTenantContext<TenantInfo>()?.TenantInfo is not null)
                     {
                         await context.Response.WriteAsync(context.GetMultiTenantContext<TenantInfo>()!.TenantInfo!.Id!);
                     }

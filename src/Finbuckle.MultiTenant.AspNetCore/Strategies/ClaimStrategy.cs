@@ -31,7 +31,7 @@ public class ClaimStrategy : IMultiTenantStrategy
         _authenticationScheme = authenticationScheme;
     }
 
-    public async Task<string?> GetKeyAsync(object context)
+    public async Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))
             throw new MultiTenantException(null,

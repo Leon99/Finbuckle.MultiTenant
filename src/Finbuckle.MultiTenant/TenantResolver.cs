@@ -32,8 +32,8 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
         ILoggerFactory? loggerFactory)
     {
         Stores = stores;
-        this._options = options;
-        this._loggerFactory = loggerFactory;
+        _options = options;
+        _loggerFactory = loggerFactory;
 
         Strategies = strategies.OrderByDescending(s => s.Priority);
     }

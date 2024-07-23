@@ -142,6 +142,6 @@ public static class MultiTenantBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(doStrategy);
 
-        return builder.WithStrategy<DelegateStrategy>(ServiceLifetime.Singleton, new object[] { doStrategy });
+        return builder.WithStrategy<DelegateStrategy>(ServiceLifetime.Singleton, [doStrategy]);
     }
 }

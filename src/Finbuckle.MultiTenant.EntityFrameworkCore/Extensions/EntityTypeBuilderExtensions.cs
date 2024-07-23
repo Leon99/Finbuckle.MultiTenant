@@ -63,7 +63,7 @@ public static class EntityTypeBuilderExtensions
         var existingQueryFilter = builder.GetQueryFilter();
 
         // override to match existing query parameter if applicable
-        if (existingQueryFilter != null)
+        if (existingQueryFilter is not null)
         {
             entityParamExp = existingQueryFilter.Parameters.First();
         }
@@ -85,7 +85,7 @@ public static class EntityTypeBuilderExtensions
         var predicate = Expression.Equal(leftExp, rightExp);
 
         // combine with existing filter
-        if (existingQueryFilter != null)
+        if (existingQueryFilter is not null)
         {
             predicate = Expression.AndAlso(existingQueryFilter.Body, predicate);
         }

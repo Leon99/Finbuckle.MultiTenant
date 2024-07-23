@@ -79,7 +79,7 @@ public class RouteStrategyShould
                 {
                     endpoints.Map(routePattern, async context =>
                     {
-                        if (context.GetMultiTenantContext<TenantInfo>()?.TenantInfo != null)
+                        if (context.GetMultiTenantContext<TenantInfo>()?.TenantInfo is not null)
                         {
                             await context.Response.WriteAsync(context.GetMultiTenantContext<TenantInfo>()!
                                 .TenantInfo!.Id!);

@@ -48,7 +48,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             _logger.LogError(e, "Exception in TryGetAsync");
         }
 
-        if (result != null)
+        if (result is not null)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
@@ -96,7 +96,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             _logger.LogError(e, "Exception in TryGetByIdentifierAsync");
         }
 
-        if (result != null)
+        if (result is not null)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
@@ -137,7 +137,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
         try
         {
             var existing = await TryGetAsync(tenantInfo.Id);
-            if (existing != null)
+            if (existing is not null)
             {
                 _logger.LogDebug(
                     "TryAddAsync: Tenant already exists. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",
@@ -146,7 +146,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
             else
             {
                 existing = await TryGetByKeyAsync(tenantInfo.Key);
-                if (existing != null)
+                if (existing is not null)
                 {
                     _logger.LogDebug(
                         "TryAddAsync: Tenant already exists. Id: \"{TenantId}\", Identifier: \"{TenantIdentifier}\"",

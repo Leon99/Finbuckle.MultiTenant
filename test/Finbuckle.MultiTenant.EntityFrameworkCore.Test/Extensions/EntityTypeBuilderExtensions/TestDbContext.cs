@@ -27,7 +27,7 @@ public class TestDbContext : EntityFrameworkCore.MultiTenantDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
             // If the test passed in a custom builder use it
-            if (_config != null)
+            if (_config is not null)
                 _config(modelBuilder);
             // Of use the standard builder configuration
             else

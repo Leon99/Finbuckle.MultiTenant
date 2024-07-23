@@ -65,7 +65,7 @@ public class HostStrategy : IMultiTenantStrategy
         this.regex = $"^{template}$";
     }
 
-    public Task<string?> GetKeyAsync(object context)
+    public Task<string> GetKeyAsync(object context)
     {
         if (context is not HttpContext httpContext)
             throw new MultiTenantException(null,

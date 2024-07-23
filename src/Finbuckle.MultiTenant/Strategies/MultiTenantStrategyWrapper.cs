@@ -12,37 +12,38 @@ public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger l
 
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    public async Task<string?> GetKeyAsync(object context)
+    public async Task<string> GetKeyAsync(object context)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        string? identifier = null;
+        string? key = null;
 
         try
         {
-            identifier = await Strategy.GetKeyAsync(context);
+            key = await Strategy.GetKeyAsync(context);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Exception in GetIdentifierAsync");
-            throw new MultiTenantException($"Exception in {Strategy.GetType()}.GetIdentifierAsync.", e);
+            _logger.LogError(e, e.Message);
+            throw new MultiTenantException($"Exception in {Strategy.GetType()}.{nameof(GetKeyAsync)}.", e);
         }
 
-        if(identifier != null)
+        
+        if(key is not null)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("GetIdentifierAsync: Found identifier: \"{Identifier}\"", identifier);
+                _logger.LogDebug("GetIdentifierAsync: Found key: \"{Key}\"", key);
             }
         }
         else
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("GetIdentifierAsync: No identifier found");
+                _logger.LogDebug("GetIdentifierAsync: No key found");
             }
         }
 
-        return identifier;
+        return key;
     }
 }

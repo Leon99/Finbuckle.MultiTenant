@@ -20,7 +20,7 @@ public class RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCa
 {
     public int Priority => -900;
 
-    public virtual async Task<string?> GetKeyAsync(object context)
+    public virtual async Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))
             throw new MultiTenantException(null,
@@ -85,7 +85,7 @@ public class RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCa
 
                     if (properties is null)
                     {
-                        if (logger != null)
+                        if (logger is not null)
                             logger.LogWarning(
                                 "A tenant could not be determined because no state parameter passed with the remote authentication callback");
                         return null;

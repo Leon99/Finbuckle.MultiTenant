@@ -26,9 +26,9 @@ public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <exception cref="ArgumentNullException"></exception>
     public DistributedCacheStore(IDistributedCache cache, string keyPrefix, TimeSpan? slidingExpiration)
     {
-        this._cache = cache ?? throw new ArgumentNullException(nameof(cache));
-        this._keyPrefix = keyPrefix ?? throw new ArgumentNullException(nameof(keyPrefix));
-        this._slidingExpiration = slidingExpiration;
+        _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+        _keyPrefix = keyPrefix ?? throw new ArgumentNullException(nameof(keyPrefix));
+        _slidingExpiration = slidingExpiration;
     }
 
     /// <inheritdoc />

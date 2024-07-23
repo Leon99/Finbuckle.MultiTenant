@@ -15,7 +15,7 @@ public class TenantInfo : ITenantInfo
         get => _id;
         set
         {
-            if (value != null)
+            if (value is not null)
             {
                 if (value.Length > Constants.TenantIdMaxLength)
                 {

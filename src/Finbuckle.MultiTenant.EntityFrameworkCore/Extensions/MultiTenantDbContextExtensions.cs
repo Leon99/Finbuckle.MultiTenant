@@ -36,7 +36,7 @@ public static class MultiTenantDbContextExtensions
 
         // handle Tenant ID mismatches for added entities
         var mismatchedAdded = addedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue != null &&
+            Where(e => (string?)e.Property("TenantId").CurrentValue is not null &&
                        (string?)e.Property("TenantId").CurrentValue != tenantInfo.Id).ToList();
 
         if (mismatchedAdded.Any())
@@ -74,7 +74,7 @@ public static class MultiTenantDbContextExtensions
 
         // handle Tenant ID mismatches for modified entities
         var mismatchedModified = modifiedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue != null &&
+            Where(e => (string?)e.Property("TenantId").CurrentValue is not null &&
                        (string?)e.Property("TenantId").CurrentValue != tenantInfo.Id).ToList();
 
         if (mismatchedModified.Any())
@@ -123,7 +123,7 @@ public static class MultiTenantDbContextExtensions
 
         // handle Tenant ID mismatches for deleted entities
         var mismatchedDeleted = deletedMultiTenantEntities.
-            Where(e => (string?)e.Property("TenantId").CurrentValue != null &&
+            Where(e => (string?)e.Property("TenantId").CurrentValue is not null &&
                        (string?)e.Property("TenantId").CurrentValue != tenantInfo.Id).ToList();
 
         if (mismatchedDeleted.Any())

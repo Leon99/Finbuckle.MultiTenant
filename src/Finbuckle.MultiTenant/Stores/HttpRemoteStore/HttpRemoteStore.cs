@@ -47,7 +47,7 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
             throw new ArgumentException("Parameter 'endpointTemplate' is not a an http or https uri.",
                 nameof(endpointTemplate));
 
-        this._endpointTemplate = endpointTemplate;
+        _endpointTemplate = endpointTemplate;
     }
 
     /// <summary>

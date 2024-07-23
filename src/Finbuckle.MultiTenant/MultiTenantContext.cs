@@ -16,7 +16,7 @@ public class MultiTenantContext<TTenantInfo> : IMultiTenantContext<TTenantInfo>
     public TTenantInfo? TenantInfo { get; set; }
 
     /// <inheritdoc />
-    public bool IsResolved => TenantInfo != null;
+    public bool IsResolved => TenantInfo is not null;
 
     /// <inheritdoc />
     public StrategyInfo? StrategyInfo { get; set; }

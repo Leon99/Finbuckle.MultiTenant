@@ -23,7 +23,7 @@ public class MultiTenantEntityTypeBuilder(EntityTypeBuilder builder)
             // set the new unique index with TenantId preserving name and database name
             IndexBuilder indexBuilder;
             Builder.Metadata.RemoveIndex(index);
-            if (index.Name != null)
+            if (index.Name is not null)
                 indexBuilder = Builder
                     .HasIndex(index.Properties.Select(p => p.Name).Append("TenantId").ToArray(), index.Name)
                     .HasDatabaseName(index.GetDatabaseName());

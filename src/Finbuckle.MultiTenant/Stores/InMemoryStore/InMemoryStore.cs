@@ -69,7 +69,7 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<bool> TryAddAsync(TTenantInfo tenantInfo)
     {
-        var result = tenantInfo.Key != null && _tenantMap.TryAdd(tenantInfo.Key, tenantInfo);
+        var result = tenantInfo.Key is not null && _tenantMap.TryAdd(tenantInfo.Key, tenantInfo);
 
         return await Task.FromResult(result);
     }
@@ -85,9 +85,9 @@ public class InMemoryStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     /// <inheritdoc />
     public async Task<bool> TryUpdateAsync(TTenantInfo tenantInfo)
     {
-        var existingTenantInfo = tenantInfo.Id != null ? await TryGetAsync(tenantInfo.Id) : null;
+        var existingTenantInfo = tenantInfo.Id is not null ? await TryGetAsync(tenantInfo.Id) : null;
 
-        if (existingTenantInfo?.Key != null)
+        if (existingTenantInfo?.Key is not null)
         {
             var result =  _tenantMap.TryUpdate(existingTenantInfo.Key, tenantInfo, existingTenantInfo);
             return await Task.FromResult(result);

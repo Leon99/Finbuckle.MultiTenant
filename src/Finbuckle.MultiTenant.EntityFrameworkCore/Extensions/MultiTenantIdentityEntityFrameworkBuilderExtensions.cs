@@ -35,7 +35,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
 
         var keyType = identityUserType.GenericTypeArguments[0];
 
-        if (roleType != null)
+        if (roleType is not null)
         {
             var identityRoleType = FindGenericBaseType(roleType, typeof(IdentityRole<>));
             if (identityRoleType is null)
@@ -93,10 +93,10 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
     private static Type? FindGenericBaseType(Type currentType, Type genericBaseType)
     {
         var type = currentType;
-        while (type != null)
+        while (type is not null)
         {
             var genericType = type.IsGenericType ? type.GetGenericTypeDefinition() : null;
-            if (genericType != null && genericType == genericBaseType)
+            if (genericType is not null && genericType == genericBaseType)
             {
                 return type;
             }

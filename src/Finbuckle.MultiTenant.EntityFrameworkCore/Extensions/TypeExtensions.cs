@@ -18,7 +18,7 @@ internal static class TypeExtensions
 
         if (unboundGeneric != toCheck)
         {
-            while (toCheck != null && toCheck != typeof(object))
+            while (toCheck is not null && toCheck != typeof(object))
             {
                 var current = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
 
@@ -36,6 +36,6 @@ internal static class TypeExtensions
 
     internal static bool HasMultiTenantAttribute(this Type type)
     {
-        return type.GetCustomAttribute<MultiTenantAttribute>() != null;
+        return type.GetCustomAttribute<MultiTenantAttribute>() is not null;
     }
 }

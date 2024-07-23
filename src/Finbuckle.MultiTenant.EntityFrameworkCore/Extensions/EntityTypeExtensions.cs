@@ -16,7 +16,7 @@ public static class EntityTypeExtensions
     /// <returns>Returns true if the entity type has MultiTenant configuration, false if not.</returns>
     public static bool IsMultiTenant(this IMutableEntityType? entityType)
     {
-            while (entityType != null)
+            while (entityType is not null)
             {
                 var hasMultiTenantAnnotation = (bool?) entityType.FindAnnotation(Constants.MultiTenantAnnotationName)?.Value ?? false;
                 if (hasMultiTenantAnnotation)
@@ -29,7 +29,7 @@ public static class EntityTypeExtensions
 
     public static bool IsMultiTenant(this IEntityType? entityType)
     {
-            while (entityType != null)
+            while (entityType is not null)
             {
                 var hasMultiTenantAnnotation = (bool?) entityType.FindAnnotation(Constants.MultiTenantAnnotationName)?.Value ?? false;
                 if (hasMultiTenantAnnotation)

@@ -63,7 +63,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     private readonly List<AuthenticationScheme> _requestHandlers;
 
     private Task<AuthenticationScheme?> GetDefaultSchemeAsync()
-        => _optionsProvider.Value.DefaultScheme != null
+        => _optionsProvider.Value.DefaultScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultScheme)
             : Task.FromResult<AuthenticationScheme?>(null);
 
@@ -74,7 +74,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     /// </summary>
     /// <returns>The scheme that will be used by default for <see cref="IAuthenticationService.AuthenticateAsync(HttpContext, string)"/> or null if not found.</returns>
     public virtual Task<AuthenticationScheme?> GetDefaultAuthenticateSchemeAsync()
-        => _optionsProvider.Value.DefaultAuthenticateScheme != null
+        => _optionsProvider.Value.DefaultAuthenticateScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultAuthenticateScheme)
             : GetDefaultSchemeAsync();
 
@@ -85,7 +85,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     /// </summary>
     /// <returns>The scheme that will be used by default for <see cref="IAuthenticationService.ChallengeAsync(HttpContext, string, AuthenticationProperties)"/> or null if not found.</returns>
     public virtual Task<AuthenticationScheme?> GetDefaultChallengeSchemeAsync()
-        => _optionsProvider.Value.DefaultChallengeScheme != null
+        => _optionsProvider.Value.DefaultChallengeScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultChallengeScheme)
             : GetDefaultSchemeAsync();
 
@@ -96,7 +96,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     /// </summary>
     /// <returns>The scheme that will be used by default for <see cref="IAuthenticationService.ForbidAsync(HttpContext, string, AuthenticationProperties)"/> or null if not found.</returns>
     public virtual Task<AuthenticationScheme?> GetDefaultForbidSchemeAsync()
-        => _optionsProvider.Value.DefaultForbidScheme != null
+        => _optionsProvider.Value.DefaultForbidScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultForbidScheme)
             : GetDefaultChallengeSchemeAsync();
 
@@ -107,7 +107,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     /// </summary>
     /// <returns>The scheme that will be used by default for <see cref="IAuthenticationService.SignInAsync(HttpContext, string, System.Security.Claims.ClaimsPrincipal, AuthenticationProperties)"/> or null if not found.</returns>
     public virtual Task<AuthenticationScheme?> GetDefaultSignInSchemeAsync()
-        => _optionsProvider.Value.DefaultSignInScheme != null
+        => _optionsProvider.Value.DefaultSignInScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultSignInScheme)
             : GetDefaultSchemeAsync();
 
@@ -118,7 +118,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     /// </summary>
     /// <returns>The scheme that will be used by default for <see cref="IAuthenticationService.SignOutAsync(HttpContext, string, AuthenticationProperties)"/> or null if not found.</returns>
     public virtual Task<AuthenticationScheme?> GetDefaultSignOutSchemeAsync()
-        => _optionsProvider.Value.DefaultSignOutScheme != null
+        => _optionsProvider.Value.DefaultSignOutScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultSignOutScheme)
             : GetDefaultSignInSchemeAsync();
 
@@ -131,7 +131,7 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
     {
         AuthenticationScheme? scheme = null;
 
-        if (_inner != null)
+        if (_inner is not null)
         {
             scheme = await _inner.GetSchemeAsync(name);
         }

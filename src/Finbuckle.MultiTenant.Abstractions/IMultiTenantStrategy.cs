@@ -13,7 +13,7 @@ public interface IMultiTenantStrategy
     /// </summary>
     /// <param name="context">The context object used to determine the key.</param>
     /// <returns>The found identifier or null.</returns>
-    Task<string?> GetKeyAsync(object context);
+    Task<string> GetKeyAsync(object context);
 
     /// <summary>
     /// Strategy execution order priority. Low values are executed first. Equal values are executed in order of registration.
