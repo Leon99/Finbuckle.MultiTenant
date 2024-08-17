@@ -96,7 +96,7 @@ public class HttpContextExtensionShould
             var context = httpContextMock.Object;
 
             var ti2 = new TenantInfo { Id = "tenant2" };
-            context.SetTenantInfo(ti2, false);
+            context.OverrideTenantInfo(ti2, false);
             var ti = context.GetTenantInfo<TenantInfo>();
             
             Assert.Same(ti2, ti);
@@ -116,7 +116,7 @@ public class HttpContextExtensionShould
             var context = httpContextMock.Object;
 
             var ti2 = new TenantInfo { Id = "tenant2" };
-            context.SetTenantInfo(ti2, false);
+            context.OverrideTenantInfo(ti2, false);
             var mtc = context.GetMultiTenantContext<TenantInfo>();
             var accessor = context.RequestServices.GetRequiredService<IMultiTenantContextAccessor<TenantInfo>>();
             
@@ -137,7 +137,7 @@ public class HttpContextExtensionShould
             var context = httpContextMock.Object;
 
             var ti2 = new TenantInfo { Id = "tenant2" };
-            context.SetTenantInfo(ti2, false);
+            context.OverrideTenantInfo(ti2, false);
             var mtc = context.GetMultiTenantContext<TenantInfo>();
 
             Assert.Null(mtc.StoreInfo);
@@ -160,7 +160,7 @@ public class HttpContextExtensionShould
             httpContextMock.Setup(c => c.Items).Returns(itemsDict);
 
             var ti2 = new TenantInfo { Id = "tenant2" };
-            httpContextMock.Object.SetTenantInfo(ti2, true);
+            httpContextMock.Object.OverrideTenantInfo(ti2, true);
 
             Assert.NotSame(sp, httpContextMock.Object.RequestServices);
             Assert.NotStrictEqual((DateTime?)sp.GetService<object>(),
@@ -183,7 +183,7 @@ public class HttpContextExtensionShould
             httpContextMock.Setup(c => c.Items).Returns(itemsDict);
 
             var ti2 = new TenantInfo { Id = "tenant2" };
-            httpContextMock.Object.SetTenantInfo(ti2, false);
+            httpContextMock.Object.OverrideTenantInfo(ti2, false);
 
             Assert.Same(sp, httpContextMock.Object.RequestServices);
             Assert.StrictEqual((DateTime?)sp.GetService<object>(),

@@ -49,7 +49,7 @@ public static class FinbuckleHttpContextExtensions
     /// <param name="tenantInfo">The tenant info instance to set as current.</param>
     /// <param name="resetServiceProviderScope">Creates a new service provider scope if true.</param>
     /// <typeparam name="TTenantInfo">The ITenantInfo implementation type.</typeparam>
-    public static void SetTenantInfo<TTenantInfo>(this HttpContext httpContext, TTenantInfo tenantInfo,
+    public static void OverrideTenantInfo<TTenantInfo>(this HttpContext httpContext, TTenantInfo tenantInfo,
         bool resetServiceProviderScope)
         where TTenantInfo : class, ITenantInfo, new()
     {
