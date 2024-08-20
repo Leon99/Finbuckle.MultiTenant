@@ -15,11 +15,27 @@ public class SessionStrategy(string tenantKey) : IMultiTenantStrategy
     /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
+        var httpContext = EnsureHttpContext(context);
+
+        return Task.FromResult(
+            httpContext.Session.GetString(_tenantKey));
+    }
+
+    static HttpContext EnsureHttpContext(object context)
+    {
         if (context is not HttpContext httpContext)
             throw new MultiTenantException(null,
                 new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
+        return httpContext;
+    }
 
-        return Task.FromResult(
-            httpContext.Session.GetString(_tenantKey)); // Prevent the compiler warning that no await exists.
+    /// <inheritdoc />
+    public Task SetKeyAsync(object context, string key)
+    {
+        var httpContext = EnsureHttpContext(context);
+
+        httpContext.Session.SetString(_tenantKey, key);
+        
+        return Task.CompletedTask;
     }
 }
