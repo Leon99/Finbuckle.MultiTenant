@@ -9,7 +9,7 @@ namespace Finbuckle.MultiTenant.Stores.HttpRemoteStore;
 public class HttpRemoteStoreClient<TTenantInfo>(IHttpClientFactory clientFactory)
     where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IHttpClientFactory _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
+    readonly IHttpClientFactory _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
 
     public async Task<TTenantInfo?> TryGetByIdentifierAsync(string endpointTemplate, string identifier)
     {

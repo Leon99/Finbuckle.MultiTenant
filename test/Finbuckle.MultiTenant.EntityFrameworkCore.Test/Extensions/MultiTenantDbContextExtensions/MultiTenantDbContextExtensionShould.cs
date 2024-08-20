@@ -11,8 +11,8 @@ namespace Finbuckle.MultiTenant.EntityFrameworkCore.Test.Extensions.MultiTenantD
 
 public class MultiTenantDbContextExtensionsShould
 {
-    private readonly DbContextOptions _options;
-    private readonly DbConnection _connection;
+    readonly DbContextOptions _options;
+    readonly DbConnection _connection;
 
     public MultiTenantDbContextExtensionsShould()
     {

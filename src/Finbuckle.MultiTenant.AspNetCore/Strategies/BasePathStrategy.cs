@@ -10,6 +10,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 
 public class BasePathStrategy : IMultiTenantStrategy
 {
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))

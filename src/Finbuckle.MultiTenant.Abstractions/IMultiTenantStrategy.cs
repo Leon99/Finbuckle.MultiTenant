@@ -9,7 +9,7 @@ namespace Finbuckle.MultiTenant.Abstractions;
 public interface IMultiTenantStrategy
 {
     /// <summary>
-    ///  Method for implementations to control how the key is determined.
+    /// Gets the key of the current tenant.
     /// </summary>
     /// <param name="context">The context object used to determine the key.</param>
     /// <returns>The found identifier or null.</returns>

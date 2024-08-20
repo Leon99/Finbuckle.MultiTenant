@@ -23,6 +23,7 @@ public class RouteStrategy : IMultiTenantStrategy
         this.TenantParam = tenantParam;
     }
 
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))

@@ -10,8 +10,9 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 
 public class SessionStrategy(string tenantKey) : IMultiTenantStrategy
 {
-    private readonly string _tenantKey = tenantKey ?? throw new ArgumentNullException(nameof(tenantKey));
+    readonly string _tenantKey = tenantKey ?? throw new ArgumentNullException(nameof(tenantKey));
 
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         if (context is not HttpContext httpContext)

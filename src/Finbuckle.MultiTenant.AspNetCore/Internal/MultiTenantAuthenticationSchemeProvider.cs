@@ -19,7 +19,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Internal;
 // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProvider
 {
-    private readonly IAuthenticationSchemeProvider _inner;
+    readonly IAuthenticationSchemeProvider _inner;
 
     /// <summary>
     /// Creates an instance of <see cref="MultiTenantAuthenticationSchemeProvider"/>
@@ -56,13 +56,13 @@ public class MultiTenantAuthenticationSchemeProvider : IAuthenticationSchemeProv
             }
     }
 
-    private readonly IOptions<AuthenticationOptions> _optionsProvider;
-    private readonly object _lock = new object();
+    readonly IOptions<AuthenticationOptions> _optionsProvider;
+    readonly object _lock = new object();
 
-    private readonly IDictionary<string, AuthenticationScheme> _schemes;
-    private readonly List<AuthenticationScheme> _requestHandlers;
+    readonly IDictionary<string, AuthenticationScheme> _schemes;
+    readonly List<AuthenticationScheme> _requestHandlers;
 
-    private Task<AuthenticationScheme?> GetDefaultSchemeAsync()
+    Task<AuthenticationScheme?> GetDefaultSchemeAsync()
         => _optionsProvider.Value.DefaultScheme is not null
             ? GetSchemeAsync(_optionsProvider.Value.DefaultScheme)
             : Task.FromResult<AuthenticationScheme?>(null);

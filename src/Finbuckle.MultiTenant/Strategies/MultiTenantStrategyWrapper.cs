@@ -10,8 +10,9 @@ public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger l
 {
     public IMultiTenantStrategy Strategy { get; } = strategy ?? throw new ArgumentNullException(nameof(strategy));
 
-    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
+    /// <inheritdoc />
     public async Task<string> GetKeyAsync(object context)
     {
         ArgumentNullException.ThrowIfNull(context);

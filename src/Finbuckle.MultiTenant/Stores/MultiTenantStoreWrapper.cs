@@ -18,7 +18,7 @@ public class MultiTenantStoreWrapper<TTenantInfo> : IMultiTenantStore<TTenantInf
     /// </summary>
     public IMultiTenantStore<TTenantInfo> Store { get; }
 
-    private readonly ILogger _logger;
+    readonly ILogger _logger;
 
     /// <summary>
     /// Constructor for MultiTenantStoreWrapper

@@ -45,8 +45,8 @@ public class HttpContextExtensionShould
             
             Assert.False(returnedMtc.IsResolved);
             Assert.Null(returnedMtc.TenantInfo);
-            Assert.Null(returnedMtc.StoreInfo);
-            Assert.Null(returnedMtc.StrategyInfo);
+            Assert.Null(returnedMtc.Store);
+            Assert.Null(returnedMtc.Strategy);
         }
         
     [Fact]
@@ -140,8 +140,8 @@ public class HttpContextExtensionShould
             context.OverrideTenantInfo(ti2, false);
             var mtc = context.GetMultiTenantContext<TenantInfo>();
 
-            Assert.Null(mtc.StoreInfo);
-            Assert.Null(mtc.StrategyInfo);
+            Assert.Null(mtc.Store);
+            Assert.Null(mtc.Strategy);
         }
 
     [Fact]

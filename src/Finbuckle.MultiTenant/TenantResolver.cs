@@ -18,8 +18,8 @@ namespace Finbuckle.MultiTenant;
 public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
     where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IOptionsMonitor<MultiTenantOptions> _options;
-    private readonly ILoggerFactory? _loggerFactory;
+    readonly IOptionsMonitor<MultiTenantOptions> _options;
+    readonly ILoggerFactory? _loggerFactory;
 
     public TenantResolver(IEnumerable<IMultiTenantStrategy> strategies,
         IEnumerable<IMultiTenantStore<TTenantInfo>> stores, IOptionsMonitor<MultiTenantOptions> options) :
@@ -82,8 +82,8 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
                     StoreType = store.GetType()
                 });
 
-                mtc.StoreInfo = new StoreInfo<TTenantInfo> { Store = store, StoreType = store.GetType() };
-                mtc.StrategyInfo = new StrategyInfo { Strategy = strategy, StrategyType = strategy.GetType() };
+                mtc.Store = store;
+                mtc.Strategy = strategy;
                 mtc.TenantInfo = tenantInfo;
                 return mtc;
             }
@@ -97,6 +97,6 @@ public class TenantResolver<TTenantInfo> : ITenantResolver<TTenantInfo>
     /// <inheritdoc />
     async Task<IMultiTenantContext> ITenantResolver.ResolveAsync(object context)
     {
-        return (IMultiTenantContext)(await ResolveAsync(context));
+        return await ResolveAsync(context);
     }
 }

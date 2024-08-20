@@ -12,7 +12,7 @@ public class MultiTenantBuilderShould
 {
     // Used in some tests.
     // ReSharper disable once UnusedAutoPropertyAccessor.Local
-    private string? TestProperty { get; set; }
+    string? TestProperty { get; set; }
 
     [Theory]
     [InlineData(ServiceLifetime.Singleton)]
@@ -241,11 +241,11 @@ public class MultiTenantBuilderShould
                 builder.WithStrategy<StaticStrategy>(ServiceLifetime.Singleton, factory: null!));
         }
 
-    private class TestStore<TTenant> : IMultiTenantStore<TTenant>
+    class TestStore<TTenant> : IMultiTenantStore<TTenant>
         where TTenant : class, ITenantInfo, new()
     {
         // ReSharper disable once NotAccessedField.Local
-        private readonly bool _testParam;
+        readonly bool _testParam;
 
         public TestStore()
         {

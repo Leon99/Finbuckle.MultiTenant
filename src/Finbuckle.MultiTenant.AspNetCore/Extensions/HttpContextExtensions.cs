@@ -59,8 +59,8 @@ public static class FinbuckleHttpContextExtensions
             var multiTenantContext = new MultiTenantContext<TTenantInfo>
             {
                 TenantInfo = tenantInfo,
-                StrategyInfo = null,
-                StoreInfo = null
+                Strategy = null,
+                Store = null
             };
 
             var setter = httpContext.RequestServices.GetRequiredService<IMultiTenantContextSetter>();

@@ -16,7 +16,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Test.Strategies;
 
 public class SessionStrategyShould
 {
-    private static IWebHostBuilder GetTestHostBuilder(string identifier, string sessionKey)
+    static IWebHostBuilder GetTestHostBuilder(string identifier, string sessionKey)
     {
         return new WebHostBuilder()
             .ConfigureServices(services =>

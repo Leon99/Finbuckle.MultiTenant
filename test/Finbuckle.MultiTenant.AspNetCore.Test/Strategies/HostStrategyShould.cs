@@ -11,7 +11,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Test.Strategies;
 
 public class HostStrategyShould
 {
-    private HttpContext CreateHttpContextMock(string host)
+    HttpContext CreateHttpContextMock(string host)
     {
         var mock = new Mock<HttpContext>();
         mock.Setup(c => c.Request.Host).Returns(new HostString(host));

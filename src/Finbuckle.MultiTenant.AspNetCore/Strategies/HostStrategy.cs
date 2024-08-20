@@ -12,7 +12,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 
 public class HostStrategy : IMultiTenantStrategy
 {
-    private readonly string regex;
+    readonly string regex;
 
     public HostStrategy(string template)
     {
@@ -65,6 +65,7 @@ public class HostStrategy : IMultiTenantStrategy
         this.regex = $"^{template}$";
     }
 
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         if (context is not HttpContext httpContext)

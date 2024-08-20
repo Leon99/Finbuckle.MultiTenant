@@ -5,7 +5,7 @@ namespace IdentitySample.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    readonly ILogger<IndexModel> _logger;
     
     public AppTenantInfo? AppTenantInfo { get; private set; }
 

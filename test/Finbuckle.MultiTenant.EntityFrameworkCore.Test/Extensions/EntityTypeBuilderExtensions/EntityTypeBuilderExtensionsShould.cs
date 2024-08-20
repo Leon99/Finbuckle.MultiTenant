@@ -13,7 +13,7 @@ namespace Finbuckle.MultiTenant.EntityFrameworkCore.Test.Extensions.EntityTypeBu
 
 public class EntityTypeBuilderExtensionsShould : IDisposable
 {
-    private readonly SqliteConnection _connection;
+    readonly SqliteConnection _connection;
 
     public EntityTypeBuilderExtensionsShould()
     {
@@ -26,7 +26,7 @@ public class EntityTypeBuilderExtensionsShould : IDisposable
             _connection?.Dispose();
         }
 
-    private TestDbContext GetDbContext(Action<ModelBuilder>? config = null, ITenantInfo? tenant = null)
+    TestDbContext GetDbContext(Action<ModelBuilder>? config = null, ITenantInfo? tenant = null)
     {
             var options = new DbContextOptionsBuilder()
                           .ReplaceService<IModelCacheKeyFactory, DynamicModelCacheKeyFactory>() // needed for testing only

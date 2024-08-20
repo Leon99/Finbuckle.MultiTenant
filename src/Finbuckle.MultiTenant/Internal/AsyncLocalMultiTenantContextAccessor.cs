@@ -13,7 +13,7 @@ internal class AsyncLocalMultiTenantContextAccessor<TTenantInfo> : IMultiTenantC
     IMultiTenantContextAccessor<TTenantInfo>
     where TTenantInfo : class, ITenantInfo, new()
 {
-    private static readonly AsyncLocal<IMultiTenantContext<TTenantInfo>> AsyncLocalContext = new();
+    static readonly AsyncLocal<IMultiTenantContext<TTenantInfo>> AsyncLocalContext = new();
 
     /// <inheritdoc />
     public IMultiTenantContext<TTenantInfo> MultiTenantContext

@@ -13,6 +13,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class HeaderStrategy(string headerKey) : IMultiTenantStrategy
 {
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))

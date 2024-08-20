@@ -11,6 +11,7 @@ public class StaticStrategy(string key) : IMultiTenantStrategy
 
     public int Priority => -1000;
 
+    /// <inheritdoc />
     public Task<string> GetKeyAsync(object context)
     {
         return Task.FromResult(Key);

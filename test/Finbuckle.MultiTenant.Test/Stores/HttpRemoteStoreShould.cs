@@ -60,7 +60,7 @@ public class HttpRemoteStoreShould : MultiTenantStoreTestBase
             var client = new HttpRemoteStoreClient<TenantInfo>(clientFactory.Object);
             var store = new HttpRemoteStore<TenantInfo>(client, "http://example.com/");
 
-            var field = store.GetType().GetField("endpointTemplate", BindingFlags.NonPublic | BindingFlags.Instance);
+            var field = store.GetType().GetField("_endpointTemplate", BindingFlags.NonPublic | BindingFlags.Instance);
             var endpointTemplate = field?.GetValue(store);
 
             Assert.Equal($"http://example.com/{HttpRemoteStore<TenantInfo>.DefaultEndpointTemplateIdentifierToken}", endpointTemplate);
@@ -73,7 +73,7 @@ public class HttpRemoteStoreShould : MultiTenantStoreTestBase
             var client = new HttpRemoteStoreClient<TenantInfo>(clientFactory.Object);
             var store = new HttpRemoteStore<TenantInfo>(client, "http://example.com");
 
-            var field = store.GetType().GetField("endpointTemplate", BindingFlags.NonPublic | BindingFlags.Instance);
+            var field = store.GetType().GetField("_endpointTemplate", BindingFlags.NonPublic | BindingFlags.Instance);
             var endpointTemplate = field?.GetValue(store);
 
             Assert.Equal($"http://example.com/{HttpRemoteStore<TenantInfo>.DefaultEndpointTemplateIdentifierToken}", endpointTemplate);

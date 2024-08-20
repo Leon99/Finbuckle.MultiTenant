@@ -14,8 +14,8 @@ namespace Finbuckle.MultiTenant.Options;
 /// <typeparam name="TOptions">The type of options being configured.</typeparam>
 public class MultiTenantOptionsManager<TOptions> : IOptionsSnapshot<TOptions> where TOptions : class
 {
-    private readonly IOptionsFactory<TOptions> _factory;
-    private readonly IOptionsMonitorCache<TOptions> _cache; // Note: this is a private cache
+    readonly IOptionsFactory<TOptions> _factory;
+    readonly IOptionsMonitorCache<TOptions> _cache; // Note: this is a private cache
 
     /// <summary>
     /// Initializes a new instance with the specified options configurations.

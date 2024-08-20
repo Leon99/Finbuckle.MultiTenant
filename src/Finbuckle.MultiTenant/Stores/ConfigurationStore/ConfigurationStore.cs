@@ -15,9 +15,9 @@ namespace Finbuckle.MultiTenant.Stores.ConfigurationStore;
 /// <typeparam name="TTenantInfo">The ITenantInfo implementation type.</typeparam>
 public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITenantInfo, new()
 {
-    private const string DefaultSectionName = "Finbuckle:MultiTenant:Stores:ConfigurationStore";
-    private readonly IConfigurationSection _section;
-    private ConcurrentDictionary<string, TTenantInfo>? _tenantMap;
+    const string DefaultSectionName = "Finbuckle:MultiTenant:Stores:ConfigurationStore";
+    readonly IConfigurationSection _section;
+    ConcurrentDictionary<string, TTenantInfo>? _tenantMap;
 
     // ReSharper disable once IntroduceOptionalParameters.Global
     /// <summary>
@@ -56,7 +56,7 @@ public class ConfigurationStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> wh
         ChangeToken.OnChange(() => _section.GetReloadToken(), UpdateTenantMap);
     }
 
-    private void UpdateTenantMap()
+    void UpdateTenantMap()
     {
         var newMap = new ConcurrentDictionary<string, TTenantInfo>(StringComparer.OrdinalIgnoreCase);
         var tenants = _section.GetSection("Tenants").GetChildren();

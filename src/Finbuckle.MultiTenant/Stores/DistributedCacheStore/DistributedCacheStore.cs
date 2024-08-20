@@ -13,9 +13,9 @@ namespace Finbuckle.MultiTenant.Stores.DistributedCacheStore;
 /// <typeparam name="TTenantInfo">The ITenantInfo implementation type.</typeparam>
 public class DistributedCacheStore<TTenantInfo> : IMultiTenantStore<TTenantInfo> where TTenantInfo : class, ITenantInfo, new()
 {
-    private readonly IDistributedCache _cache;
-    private readonly string _keyPrefix;
-    private readonly TimeSpan? _slidingExpiration;
+    readonly IDistributedCache _cache;
+    readonly string _keyPrefix;
+    readonly TimeSpan? _slidingExpiration;
 
     /// <summary>
     /// Constructor for DistributedCacheStore.

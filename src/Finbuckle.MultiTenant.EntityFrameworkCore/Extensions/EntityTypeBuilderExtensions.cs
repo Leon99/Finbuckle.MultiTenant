@@ -10,12 +10,12 @@ namespace Finbuckle.MultiTenant;
 
 public static class EntityTypeBuilderExtensions
 {
-    private class ExpressionVariableScope
+    class ExpressionVariableScope
     {
         public IMultiTenantDbContext? Context { get; }
     }
 
-    private static LambdaExpression? GetQueryFilter(this EntityTypeBuilder builder)
+    static LambdaExpression? GetQueryFilter(this EntityTypeBuilder builder)
     {
         return builder.Metadata.GetQueryFilter();
     }
@@ -52,7 +52,7 @@ public static class EntityTypeBuilderExtensions
         return new MultiTenantEntityTypeBuilder(builder);
     }
 
-    private static LambdaExpression CreateFilterExpression(EntityTypeBuilder builder)
+    static LambdaExpression CreateFilterExpression(EntityTypeBuilder builder)
     {
         // build expression tree for e => EF.Property<string>(e, "TenantId") == TenantInfo.Id
 

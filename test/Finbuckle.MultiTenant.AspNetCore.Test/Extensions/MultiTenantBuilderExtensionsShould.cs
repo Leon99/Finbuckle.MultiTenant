@@ -25,7 +25,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Test.Extensions;
 
 public class MultiTenantBuilderExtensionsShould
 {
-    private class TestTenantInfo : ITenantInfo
+    class TestTenantInfo : ITenantInfo
     {
         public string? Id { get; set; }
         public string? Key { get; set; }

@@ -24,14 +24,14 @@ public class EfCoreStoreShould
             }
     }
 
-    private readonly SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
+    readonly SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
 
     public void Dispose()
     {
             _connection.Dispose();
         }
 
-    private IProperty? GetModelProperty(string propName)
+    IProperty? GetModelProperty(string propName)
     {
             _connection.Open();
             var options = new DbContextOptionsBuilder().UseSqlite(_connection).Options;

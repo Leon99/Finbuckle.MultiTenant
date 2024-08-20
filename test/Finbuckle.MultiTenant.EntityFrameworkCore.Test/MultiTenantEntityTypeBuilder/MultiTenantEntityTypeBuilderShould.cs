@@ -17,7 +17,7 @@ namespace MultiTenantEntityTypeBuilderShould;
 
 public class MultiTenantEntityTypeBuilderShould
 {
-    private TestDbContext GetDbContext(Action<ModelBuilder> config)
+    TestDbContext GetDbContext(Action<ModelBuilder> config)
     {
         var connection = new SqliteConnection("DataSource=:memory:");
         var options = new DbContextOptionsBuilder().UseSqlite(connection)

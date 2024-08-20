@@ -155,7 +155,7 @@ public class MultiTenantOptionsCacheShould
         result = cache.TryRemove(name);
         Assert.True(result);
         var tenantCache = (ConcurrentDictionary<string, IOptionsMonitorCache<TestOptions>>?)cache.GetType().
-            GetField("map", BindingFlags.NonPublic | BindingFlags.Instance)?.
+            GetField("_map", BindingFlags.NonPublic | BindingFlags.Instance)?.
             GetValue(cache);
 
         dynamic? tenantInternalCache = tenantCache?[ti.Id].GetType().GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance)?
@@ -199,7 +199,7 @@ public class MultiTenantOptionsCacheShould
 
         // Assert options cleared on this tenant.
         var tenantCache = (ConcurrentDictionary<string, IOptionsMonitorCache<TestOptions>>?)cache.GetType().
-            GetField("map", BindingFlags.NonPublic | BindingFlags.Instance)?.
+            GetField("_map", BindingFlags.NonPublic | BindingFlags.Instance)?.
             GetValue(cache);
 
         dynamic? tenantInternalCache = tenantCache?[ti.Id].GetType().GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance)?
@@ -239,7 +239,7 @@ public class MultiTenantOptionsCacheShould
 
         // Assert options cleared on this tenant.
         var tenantCache = (ConcurrentDictionary<string, IOptionsMonitorCache<TestOptions>>?)cache.GetType().
-            GetField("map", BindingFlags.NonPublic | BindingFlags.Instance)?.
+            GetField("_map", BindingFlags.NonPublic | BindingFlags.Instance)?.
             GetValue(cache);
 
         dynamic? tenantInternalCache = tenantCache?[ti.Id].GetType().GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance)?
@@ -278,7 +278,7 @@ public class MultiTenantOptionsCacheShould
 
         // Assert options cleared on this tenant.
         var tenantCache = (ConcurrentDictionary<string, IOptionsMonitorCache<TestOptions>>?)cache.GetType().
-            GetField("map", BindingFlags.NonPublic | BindingFlags.Instance)?.
+            GetField("_map", BindingFlags.NonPublic | BindingFlags.Instance)?.
             GetValue(cache);
 
         dynamic? tenantInternalCache = tenantCache?[ti.Id].GetType().GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance)?

@@ -10,7 +10,7 @@ namespace Finbuckle.MultiTenant.EntityFrameworkCore.Test.Extensions.MultiTenantE
 
 public class TestDbContext : EntityFrameworkCore.MultiTenantDbContext
 {
-    private readonly Action<ModelBuilder> _config;
+    readonly Action<ModelBuilder> _config;
 
     public TestDbContext(Action<ModelBuilder> config, DbContextOptions options) : base(
         new TenantInfo {Id = "dummy"},

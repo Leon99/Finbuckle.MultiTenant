@@ -13,9 +13,9 @@ namespace Finbuckle.MultiTenant.Options;
 public class MultiTenantOptionsCache<TOptions> : IOptionsMonitorCache<TOptions>
     where TOptions : class
 {
-    private readonly IMultiTenantContextAccessor _multiTenantContextAccessor;
-    
-    private readonly ConcurrentDictionary<string, IOptionsMonitorCache<TOptions>> _map = new();
+    readonly IMultiTenantContextAccessor _multiTenantContextAccessor;
+
+    readonly ConcurrentDictionary<string, IOptionsMonitorCache<TOptions>> _map = new();
 
     /// <summary>
     /// Constructs a new instance of MultiTenantOptionsCache.

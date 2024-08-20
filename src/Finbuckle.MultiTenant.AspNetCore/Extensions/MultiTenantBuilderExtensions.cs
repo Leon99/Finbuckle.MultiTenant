@@ -336,7 +336,7 @@ public static class MultiTenantBuilderExtensions
         return builder.WithStrategy<ClaimStrategy>(ServiceLifetime.Singleton, tenantKey, authenticationScheme);
     }
 
-    private static void BypassSessionPrincipalValidation<TTenantInfo>(
+    static void BypassSessionPrincipalValidation<TTenantInfo>(
         MultiTenantBuilder<TTenantInfo> builder)
         where TTenantInfo : class, ITenantInfo, new()
     {

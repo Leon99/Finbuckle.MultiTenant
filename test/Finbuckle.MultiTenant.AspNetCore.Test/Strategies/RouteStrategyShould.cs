@@ -63,7 +63,7 @@ public class RouteStrategyShould
             new RouteStrategy(testString!));
     }
 
-    private static IWebHostBuilder GetTestHostBuilder(string identifier, string routePattern)
+    static IWebHostBuilder GetTestHostBuilder(string identifier, string routePattern)
     {
         return new WebHostBuilder()
             .ConfigureServices(services =>

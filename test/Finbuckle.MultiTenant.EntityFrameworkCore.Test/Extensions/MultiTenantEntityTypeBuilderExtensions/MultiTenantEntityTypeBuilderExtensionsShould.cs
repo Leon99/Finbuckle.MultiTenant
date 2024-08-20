@@ -11,7 +11,7 @@ namespace Finbuckle.MultiTenant.EntityFrameworkCore.Test.Extensions.MultiTenantE
 
 public class MultiTenantEntityTypeBuilderExtensionsShould
 {
-    private TestDbContext GetDbContext(Action<ModelBuilder> config)
+    TestDbContext GetDbContext(Action<ModelBuilder> config)
     {
         var options = new DbContextOptionsBuilder()
             .ReplaceService<IModelCacheKeyFactory, DynamicModelCacheKeyFactory>()

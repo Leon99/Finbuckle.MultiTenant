@@ -15,8 +15,8 @@ namespace Finbuckle.MultiTenant.AspNetCore.Strategies;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class ClaimStrategy : IMultiTenantStrategy
 {
-    private readonly string _tenantKey;
-    private readonly string? _authenticationScheme;
+    readonly string _tenantKey;
+    readonly string? _authenticationScheme;
 
     public ClaimStrategy(string template) : this(template, null)
     {
@@ -31,6 +31,7 @@ public class ClaimStrategy : IMultiTenantStrategy
         _authenticationScheme = authenticationScheme;
     }
 
+    /// <inheritdoc />
     public async Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))

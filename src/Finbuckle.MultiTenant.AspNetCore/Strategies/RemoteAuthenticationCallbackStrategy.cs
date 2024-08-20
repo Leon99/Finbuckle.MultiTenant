@@ -20,6 +20,7 @@ public class RemoteAuthenticationCallbackStrategy(ILogger<RemoteAuthenticationCa
 {
     public int Priority => -900;
 
+    /// <inheritdoc />
     public virtual async Task<string> GetKeyAsync(object context)
     {
         if (!(context is HttpContext httpContext))

@@ -152,8 +152,8 @@ public abstract class MultiTenantIdentityDbContext<TUser, TRole, TKey, TUserClai
 
     public TenantNotSetMode TenantNotSetMode { get; set; } = TenantNotSetMode.Throw;
 
-    private readonly IMultiTenantContextAccessor? _multiTenantContextAccessor;
-    private readonly ITenantInfo? _tenantInfo;
+    readonly IMultiTenantContextAccessor? _multiTenantContextAccessor;
+    readonly ITenantInfo? _tenantInfo;
 
     /// <summary>
     /// Constructs the database context instance and binds to the current tenant.

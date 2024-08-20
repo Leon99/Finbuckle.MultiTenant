@@ -25,7 +25,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
         return builder;
     }
 
-    private static void AddStores(IServiceCollection services, Type userType, Type? roleType, Type contextType)
+    static void AddStores(IServiceCollection services, Type userType, Type? roleType, Type contextType)
     {
         var identityUserType = FindGenericBaseType(userType, typeof(IdentityUser<>));
         if (identityUserType is null)
@@ -90,7 +90,7 @@ public static class MultiTenantIdentityEntityFrameworkBuilderExtensions
         }
     }
 
-    private static Type? FindGenericBaseType(Type currentType, Type genericBaseType)
+    static Type? FindGenericBaseType(Type currentType, Type genericBaseType)
     {
         var type = currentType;
         while (type is not null)

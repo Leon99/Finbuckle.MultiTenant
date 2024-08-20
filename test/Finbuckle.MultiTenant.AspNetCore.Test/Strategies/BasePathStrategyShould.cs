@@ -14,7 +14,7 @@ namespace Finbuckle.MultiTenant.AspNetCore.Test.Strategies;
 
 public class BasePathStrategyShould
 {
-    private HttpContext CreateHttpContextMock(string path, string pathBase = "/")
+    HttpContext CreateHttpContextMock(string path, string pathBase = "/")
     {
         var mock = new Mock<HttpContext>();
         mock.SetupProperty<PathString>(c => c.Request.Path, path);

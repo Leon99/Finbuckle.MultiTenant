@@ -5,7 +5,7 @@ namespace BasePathStrategySample.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    readonly ILogger<IndexModel> _logger;
 
     public TenantInfo? TenantInfo { get; private set; }
 

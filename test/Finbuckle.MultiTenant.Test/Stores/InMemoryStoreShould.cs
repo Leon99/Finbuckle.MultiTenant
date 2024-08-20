@@ -12,7 +12,7 @@ namespace Finbuckle.MultiTenant.Test.Stores;
 
 public class InMemoryStoreShould : MultiTenantStoreTestBase
 {
-    private IMultiTenantStore<TenantInfo> CreateCaseSensitiveTestStore()
+    IMultiTenantStore<TenantInfo> CreateCaseSensitiveTestStore()
     {
         var services = new ServiceCollection();
         services.AddOptions().Configure<InMemoryStoreOptions<TenantInfo>>(o => o.IsCaseSensitive = true);

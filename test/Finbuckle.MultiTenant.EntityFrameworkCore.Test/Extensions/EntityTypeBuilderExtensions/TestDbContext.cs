@@ -12,7 +12,7 @@ namespace Finbuckle.MultiTenant.EntityFrameworkCore.Test.Extensions.EntityTypeBu
 [SuppressMessage("ReSharper", "UnusedMember.Local")]
 public class TestDbContext : EntityFrameworkCore.MultiTenantDbContext
 {
-    private readonly Action<ModelBuilder>? _config;
+    readonly Action<ModelBuilder>? _config;
 
     public TestDbContext(Action<ModelBuilder>? config, ITenantInfo tenantInfo, DbContextOptions options) : base(tenantInfo, options)
     {

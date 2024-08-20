@@ -7,8 +7,9 @@ namespace Finbuckle.MultiTenant.Strategies;
 
 public class DelegateStrategy(Func<object, Task<string?>> doStrategy) : IMultiTenantStrategy
 {
-    private readonly Func<object, Task<string?>> _doStrategy = doStrategy ?? throw new ArgumentNullException(nameof(doStrategy));
+    readonly Func<object, Task<string?>> _doStrategy = doStrategy ?? throw new ArgumentNullException(nameof(doStrategy));
 
+    /// <inheritdoc />
     public async Task<string> GetKeyAsync(object context)
     {
         return await _doStrategy(context);

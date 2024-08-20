@@ -17,8 +17,8 @@ public class HttpRemoteStore<TTenantInfo> : IMultiTenantStore<TTenantInfo>
     // ReSharper disable once StaticMemberInGenericType
     // (also used on HttpRemoteStoreClient)
     internal static readonly string DefaultEndpointTemplateIdentifierToken = $"{{{Constants.TenantToken}}}";
-    private readonly HttpRemoteStoreClient<TTenantInfo> _client;
-    private readonly string _endpointTemplate;
+    readonly HttpRemoteStoreClient<TTenantInfo> _client;
+    readonly string _endpointTemplate;
 
     /// <summary>
     /// Constructor for HttpRemoteStore.

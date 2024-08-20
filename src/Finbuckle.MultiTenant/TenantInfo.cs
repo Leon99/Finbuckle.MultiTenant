@@ -8,7 +8,7 @@ namespace Finbuckle.MultiTenant;
 
 public class TenantInfo : ITenantInfo
 {
-    private string? _id;
+    string? _id;
 
     public string? Id
     {

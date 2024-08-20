@@ -75,8 +75,8 @@ public class TenantResolverShould
         var result = await resolver.ResolveAsync(new object());
 
         Assert.Equal("initech", result.TenantInfo!.Key);
-        Assert.IsType<StaticStrategy>(result.StrategyInfo!.Strategy);
-        Assert.IsType<ConfigurationStore<TenantInfo>>(result.StoreInfo!.Store);
+        Assert.IsType<StaticStrategy>(result.Strategy);
+        Assert.IsType<ConfigurationStore<TenantInfo>>(result.Store);
     }
 
     [Fact]
@@ -121,8 +121,8 @@ public class TenantResolverShould
         var result = await resolver.ResolveAsync(new object());
 
         Assert.Equal("initech", result.TenantInfo!.Key);
-        Assert.IsType<StaticStrategy>(result.StrategyInfo!.Strategy);
-        Assert.IsType<ConfigurationStore<TenantInfo>>(result.StoreInfo!.Store);
+        Assert.IsType<StaticStrategy>(result.Strategy);
+        Assert.IsType<ConfigurationStore<TenantInfo>>(result.Store);
     }
 
     [Fact]
