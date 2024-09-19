@@ -1,4 +1,4 @@
-# ![Finbuckle Logo](https://www.finbuckle.com/images/finbuckle-32x32-gh.png) Finbuckle.MultiTenant <span class="_version">7.0.1</span>
+# ![Finbuckle Logo](https://www.finbuckle.com/images/finbuckle-32x32-gh.png) Finbuckle.MultiTenant <span class="_version">7.0.2</span>
 
 ## About Finbuckle.MultiTenant
 
@@ -6,12 +6,14 @@ Finbuckle.MultiTenant is an open-source multitenancy middleware library for .NET
 per-tenant app behavior, and per-tenant data isolation.
 See [https://www.finbuckle.com/multitenant](https://www.finbuckle.com/multitenant) for more details and documentation.
 
+**This release supports .NET 6, .NET 7, and .NET 8.**
+
 Current publish feed release:  
 ![Finbuckle.MultiTenant NuGet.org badge](https://buildstats.info/nuget/finbuckle.multitenant)
 
 Table of Contents
 
-1. [What's New in v<span class="_version">7.0.1</span>](#whats-new)
+1. [What's New in v<span class="_version">7.0.2</span>](#whats-new)
 2. [Quick Start](#quick-start)
 3. [Documentation](#documentation)
 4. [Sample Projects](#sample-projects)
@@ -23,9 +25,9 @@ Table of Contents
 10. [Building from Source](#building-from-source)
 11. [Running Unit Tests](#running-unit-tests)
 
-## <a name="whats-new"></a> What's New in v<span class="_version">7.0.1</span>
+## <a name="whats-new"></a> What's New in v<span class="_version">7.0.2</span>
 
-> This section only lists release update details specific to v<span class="_version">7.0.1</span>. See
+> This section only lists release update details specific to v<span class="_version">7.0.2</span>. See
 > the [changelog file](CHANGELOG.md) for all release update details.
 
 <!--_release-notes-->
@@ -33,7 +35,8 @@ Table of Contents
 
 ### Bug Fixes
 
-* only throw exception in EnforceMultiTenant for null tenant if there are entity changes. ([#819](https://github.com/Finbuckle/Finbuckle.MultiTenant/issues/819)) ([ca9e9fd](https://github.com/Finbuckle/Finbuckle.MultiTenant/commit/ca9e9fd9a55789d790d31f82756e5ecdac03a28f))
+* Preserve annotations when adjusting index ([#832](https://github.com/Finbuckle/Finbuckle.MultiTenant/issues/832)) ([e765340](https://github.com/Finbuckle/Finbuckle.MultiTenant/commit/e765340a3c74268cadf191a55e9a5c082894c2bd))
+* strategy wrapper no longer throws on a null context, instead passing it to the actual strategy ([#863](https://github.com/Finbuckle/Finbuckle.MultiTenant/issues/863)) ([2b165c7](https://github.com/Finbuckle/Finbuckle.MultiTenant/commit/2b165c77db4f82244e33fe1823e865f30b2a3ea2))
 <!--_release-notes-->
 
 ## Quick Start
