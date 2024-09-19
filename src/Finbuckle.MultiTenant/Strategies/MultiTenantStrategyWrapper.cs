@@ -17,7 +17,7 @@ public class MultiTenantStrategyWrapper(IMultiTenantStrategy strategy, ILogger l
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        string? key = null;
+        string? key;
 
         try
         {
