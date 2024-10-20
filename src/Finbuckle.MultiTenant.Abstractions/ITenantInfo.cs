@@ -9,19 +9,19 @@ namespace Finbuckle.MultiTenant.Abstractions;
 public interface ITenantInfo
 {
     /// <summary>
-    /// Gets or sets a unique id for the tenant.
+    /// Gets or sets a unique Id for the tenant.
     /// </summary>
     /// <remarks>
-    /// Unlike the Identifier, the id is never intended to be changed.
+    /// Unlike <see cref="Key"/>, Id is never intended to be changed.
     /// </remarks>
     string? Id { get; set; }
     
     /// <summary>
-    /// Gets or sets a unique identifier for the tenant.
+    /// Gets or sets a unique key for the tenant.
     /// </summary>
     /// <remarks>
     /// It is intended for use during tenant resolution and format is determined by convention. For example
-    /// a web based strategy may require URL friendly identifiers. Identifiers can be changed if needed.
+    /// a web based strategy may require URL friendly identifiers. Keys can be changed if needed.
     /// </remarks>
     string? Key { get; set;  }
     
