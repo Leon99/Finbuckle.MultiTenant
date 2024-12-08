@@ -26,7 +26,7 @@ public static class EntityTypeBuilderExtensions
     /// </summary>
     /// <param name="builder">The typed EntityTypeBuilder instance.</param>
     /// <returns>A MultiTenantEntityTypeBuilder instance.</returns>
-    public static MultiTenantEntityTypeBuilder IsMultiTenant(this EntityTypeBuilder builder)
+    public static MultiTenantEntityTypeBuilder IsMultiTenant(this EntityTypeBuilder builder, bool allowNullTenantId = false)
     {
         if (builder.Metadata.IsMultiTenant())
             return new MultiTenantEntityTypeBuilder(builder);
@@ -36,7 +36,7 @@ public static class EntityTypeBuilderExtensions
         try
         {
             builder.Property<string>("TenantId")
-                .IsRequired()
+                .IsRequired(!allowNullTenantId)
                 .HasMaxLength(Internal.Constants.TenantIdMaxLength);
         }
         catch (Exception ex)
@@ -44,7 +44,7 @@ public static class EntityTypeBuilderExtensions
             throw new MultiTenantException($"{builder.Metadata.ClrType} unable to add TenantId property", ex);
         }
 
-        var lambdaExp = CreateFilterExpression(builder);
+        var lambdaExp = CreateFilterExpression(builder, allowNullTenantId);
 
         // set the filter
         builder.HasQueryFilter(lambdaExp);
@@ -52,7 +52,7 @@ public static class EntityTypeBuilderExtensions
         return new MultiTenantEntityTypeBuilder(builder);
     }
 
-    static LambdaExpression CreateFilterExpression(EntityTypeBuilder builder)
+    static LambdaExpression CreateFilterExpression(EntityTypeBuilder builder, bool allowNullTenantId)
     {
         // build expression tree for e => EF.Property<string>(e, "TenantId") == TenantInfo.Id
 
@@ -70,7 +70,7 @@ public static class EntityTypeBuilderExtensions
 
         // build up expression tree for: EF.Property<string>(e, "TenantId")
         var tenantIdExp = Expression.Constant("TenantId", typeof(string));
-        var efPropertyExp = Expression.Call(typeof(EF), nameof(EF.Property), new[] { typeof(string) }, entityParamExp, tenantIdExp);
+        var efPropertyExp = Expression.Call(typeof(EF), nameof(EF.Property), [typeof(string)], entityParamExp, tenantIdExp);
         var leftExp = efPropertyExp;
 
         // build up express tree for: TenantInfo.Id
@@ -83,6 +83,11 @@ public static class EntityTypeBuilderExtensions
 
         // build expression tree for EF.Property<string>(e, "TenantId") == TenantInfo.Id'
         var predicate = Expression.Equal(leftExp, rightExp);
+
+        if (allowNullTenantId)
+        {
+            predicate = Expression.OrElse(Expression.Equal(leftExp, Expression.Constant(null)), predicate);
+        }
 
         // combine with existing filter
         if (existingQueryFilter is not null)
